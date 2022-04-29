@@ -57,7 +57,7 @@ function getWidgetVote(program_id, widgetArr) {
 function registerCustomTimeline() {
     // Gets initial list of widgets
     LiveLike.getWidgets({
-        programId: "200b1218-c4d4-4a55-b763-e391ad51df2e",
+        programId: "21d3654e-3344-47d5-ae30-1781cb3aeca6",
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
         ordering: "recent", //Valid ordering values are 'recent'
@@ -67,7 +67,7 @@ function registerCustomTimeline() {
         var numberPredsResults = results
         //get text prediction widgets and map it with number widgets
         LiveLike.getWidgets({
-            programId: "200b1218-c4d4-4a55-b763-e391ad51df2e",
+            programId: "21d3654e-3344-47d5-ae30-1781cb3aeca6",
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
             ordering: "recent", //Valid ordering values are 'recent'
@@ -124,6 +124,7 @@ function renderRemainingRounds(results) {
 function renderFirstRoundWidgets(results) {
     let nextRoundIndex = 0
     widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
+    let halfWayMark = results.length / 2
     results.forEach(
         widgetPayload => {
             if (isInitialRound(widgetPayload)) {
