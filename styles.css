@@ -1,0 +1,70 @@
+body {
+    background: linear-gradient(#213550 30%, #091932, #031430 91%);
+}
+
+.livelike-voting-input-container {justify-content: start !important}
+
+.livelike-voting-number-input {font-size: 40px !important; font-weight: bold}
+
+livelike-footer {
+    background-color: transparent !important;
+}
+
+input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;}
+
+.user-number-input{
+    color:white !important
+}
+
+button.predict-button {
+    margin: 0.1rem 0rem 0rem 0rem;
+}
+
+livelike-widget-root.custom-widget {
+    margin: 24px 4px 4px 4px;
+}
+
+livelike-widget-body {
+    background: transparent;
+}
+
+.livelike-voting-input-container {
+    justify-content: start;
+}
+
+.livelike-option-start{
+    align-items: flex-start;
+    padding: 0;
+    border: 0px;
+}
+
+.livelike-option-end {
+    align-items: flex-end;
+    padding: 0;
+    border: 0px;
+}
+
+livelike-footer {
+    background: transparent;
+}
+
+#leftbox {
+    float: left;
+    width: 20%;
+    margin: 10px 10px 10px 10px;
+    height: 280px;
+}
+
+#middlebox {
+    float: left;
+    width: 20%;
+    margin: 100px 10px 10px 10px;
+    height: 280px;
+}
+
+#rightbox {
+    float: left;
+    width: 20%;
+    margin: 180px 10px 10px 10px;
+    height: 280px;
+}
