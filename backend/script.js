@@ -106,7 +106,7 @@ const generateWidgets = () => {
     //Create and Insert Options in Q
     for (let roundIndex = 0; roundIndex < totalNoOfRounds; roundIndex++) {
         for (let index = 0; index < noOfWidgetPerRoundArr[roundIndex]; index++) {
-            let option = getOptions(index, roundIndex === 0)
+            let option = getOptions(index, roundIndex, noOfWidgetPerRoundArr[roundIndex])
             let widget = getWidget(index, roundIndex)
             options.push(option)
             widgets.push(widget)
@@ -151,17 +151,19 @@ function getWidget(index, round) {
     };
 }
 
-function getOptions(index, isFirstRound) {
+function getOptions(index, roundIndex, noOfWidgetsInArray) {
     let option = []
-    if (isFirstRound) {
+    //First Round widgets
+    if (roundIndex === 0) {
         index = index * 2
         option.push({ description: teamsUnorderedListElement.children[index].firstChild.value, image_url: teamsUnorderedListElement.children[index].children[1].value });
         option.push({ description: teamsUnorderedListElement.children[index + 1].firstChild.value, image_url: teamsUnorderedListElement.children[index +1].children[1].value });
     } else {
-        Array.prototype.forEach.call(teamsUnorderedListElement.children, child => {
-            option.push({ description: child.firstChild.value, image_url: child.children[1].value })
-        });
-
+        let tempNoOfTeams = teamsUnorderedListElement.children.length;
+        let noOfOptionsPerWidget = tempNoOfTeams / noOfWidgetsInArray
+        for(let childIndex = noOfOptionsPerWidget * index; childIndex < (noOfOptionsPerWidget * index)+noOfOptionsPerWidget; childIndex++) {
+            option.push({ description: teamsUnorderedListElement.children[childIndex].firstChild.value, image_url: teamsUnorderedListElement.children[childIndex].children[1].value })
+        }
     }
     return option
 }

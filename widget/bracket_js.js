@@ -58,7 +58,7 @@ function getWidgetVote(program_id, widgetArr) {
 function registerCustomTimeline() {
     // Gets initial list of widgets
     LiveLike.getWidgets({
-        programId: "d968732b-3ed2-4906-89d5-cb19584f24bc",
+        programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
         ordering: "", //Valid ordering values are 'recent'
@@ -68,7 +68,7 @@ function registerCustomTimeline() {
         var numberPredsResults = results
         //get text prediction widgets and map it with number widgets
         LiveLike.getWidgets({
-            programId: "d968732b-3ed2-4906-89d5-cb19584f24bc",
+            programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
             ordering: "", //Valid ordering values are 'recent'
