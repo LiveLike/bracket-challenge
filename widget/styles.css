@@ -21,7 +21,7 @@ button.predict-button {
 }
 
 livelike-widget-root.custom-widget {
-    margin: 24px 4px 4px 4px;
+    margin: 80px 4px 0px 0px;
 }
 
 livelike-widget-body {
@@ -50,21 +50,42 @@ livelike-footer {
 
 #leftbox {
     float: left;
-    width: 20%;
-    margin: 10px 10px 10px 10px;
-    height: 280px;
+    width: 16%;
+    margin: 10px 0px 0px 100px;
+    height: 100%;
 }
 
 #middlebox {
     float: left;
-    width: 20%;
-    margin: 100px 10px 10px 10px;
-    height: 280px;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
 }
 
 #rightbox {
     float: left;
-    width: 20%;
-    margin: 180px 10px 10px 10px;
-    height: 280px;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
+}
+
+#leftbox_1 {
+    float: left;
+    width: 16%;
+    margin: 10px 0px 0px 0px;
+    height: 100%;
+}
+
+#middlebox_1 {
+    float: left;
+    width: 16%;
+    margin: 120px 0px 0px 0px;
+    height: 100%;
+}
+
+#rightbox_1 {
+    float: left;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
 }

@@ -18,6 +18,7 @@ const widgetContainer = setupWidgetContainer()
 function setupWidgetContainer() {
     let widgetContainer = document.querySelectorAll('livelike-widgets');
     widgetContainer.forEach(container => {
+        container.customWidgetRenderer = customWidgetRenderer;
         LiveLike.registerWidgetMode(
             'customTimeline',
             ({ widget }) => {
@@ -57,20 +58,20 @@ function getWidgetVote(program_id, widgetArr) {
 function registerCustomTimeline() {
     // Gets initial list of widgets
     LiveLike.getWidgets({
-        programId: "21d3654e-3344-47d5-ae30-1781cb3aeca6",
+        programId: "36948a23-9ae8-4bfe-96fc-3dfe6d00bf00",
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
-        ordering: "recent", //Valid ordering values are 'recent'
+        ordering: "", //Valid ordering values are 'recent'
         interactive: true  //Valid interactive values are true, false
     }).then(({ results }) => {
 
         var numberPredsResults = results
         //get text prediction widgets and map it with number widgets
         LiveLike.getWidgets({
-            programId: "21d3654e-3344-47d5-ae30-1781cb3aeca6",
+            programId: "36948a23-9ae8-4bfe-96fc-3dfe6d00bf00",
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
-            ordering: "recent", //Valid ordering values are 'recent'
+            ordering: "", //Valid ordering values are 'recent'
             interactive: true  //Valid interactive values are true, false
         }).then(({ results }) => {
 
@@ -95,15 +96,51 @@ function registerCustomTimeline() {
                 roundsArr[arrayIndex] = roundsArr[arrayIndex - 1] + (nextRoundIndex / (arrayIndex * 2))
             }
 
-            renderRemainingRounds(numberPredsResults)
+            renderRoundTwo(numberPredsResults)
+            renderRoundThree(numberPredsResults)
+            //renderRemainingRounds(numberPredsResults)
         });
     })
+}
+
+function renderRoundTwo(results) {
+    let index = 0
+    //for (let i = 1; i < roundsArr.length; i++) {
+        let roundTwoLength = roundsArr[1] - roundsArr[0]
+        let roundTwoHalfWay = roundTwoLength / 2
+        let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
+        let roundTwoRightContainer = document.querySelector('#roundTwoRight')
+        roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
+        roundTwoRightContainer.customWidgetRenderer = customWidgetRenderer;
+
+        for (index = roundsArr[0]; index < roundsArr[1]; index++) {
+            let widgetPayload = results[index]
+            widgetIds[index] = widgetPayload.id
+
+            if(index < (roundsArr[0] + roundTwoHalfWay)){
+                initWidget(roundTwoLeftContainer,widgetPayload)
+            } else {
+                initWidget(roundTwoRightContainer,widgetPayload)
+            }
+        }
+    //}
+}
+
+function renderRoundThree(results) {
+    let index = 0
+    //for (let i = 1; i < roundsArr.length; i++) {
+        let roundFinalContainer = document.querySelector('#final')
+        for (index = roundsArr[1]; index < roundsArr[2]; index++) {
+            let widgetPayload = results[index]
+            widgetIds[index] = widgetPayload.id
+            initWidget(roundFinalContainer,widgetPayload)
+        }
+    //}
 }
 
 function renderRemainingRounds(results) {
     let index = 0
     for (let i = 1; i < roundsArr.length; i++) {
-        widgetContainer[i].customWidgetRenderer = customWidgetRenderer;
         for (index = roundsArr[i - 1]; index < roundsArr[i]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
@@ -123,28 +160,41 @@ function renderRemainingRounds(results) {
 
 function renderFirstRoundWidgets(results) {
     let nextRoundIndex = 0
-    widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
-    let halfWayMark = results.length / 2
+    //widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
+    let roundOneContainerLeft = document.querySelector("#roundOneLeft")
+    let roundOneContainerRight = document.querySelector("#roundOneRight")
+    roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
+    roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
+
+    let halfWayMark = results.length / 4
     results.forEach(
         widgetPayload => {
             if (isInitialRound(widgetPayload)) {
                 widgetIds[nextRoundIndex] = widgetPayload.id
+                if (nextRoundIndex < halfWayMark) {
+                    initWidget(roundOneContainerLeft, widgetPayload)
+                } else {
+                    initWidget(roundOneContainerRight, widgetPayload)
+                }
                 nextRoundIndex = nextRoundIndex + 1
-                widgetContainer[0].showWidget({
-                    widgetPayload,
-                    mode: ({ widget }) => {
-                        return widgetContainer[0].attach(widget, 'append').then(() => {
-                            setWidgetPhase(widget)
-                            //widget.interactive()
-                        })
-                    },
-                    initialLoad: true
-                })
             }
         }
     )
 
     return nextRoundIndex
+}
+
+function initWidget(container, widgetPayload) {
+    container.showWidget({
+        widgetPayload,
+        mode: ({ widget }) => {
+            return container.attach(widget, 'append').then(() => {
+                setWidgetPhase(widget)
+                //widget.interactive()
+            })
+        },
+        initialLoad: true
+    })
 }
 
 document.addEventListener("widgetattached", function (e) {

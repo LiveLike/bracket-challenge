@@ -61,9 +61,6 @@ ${this.options.map((option, idx) => {
             return html`
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
             <livelike-image height="100px" width="100px"></livelike-image>
-          <div style="display:none" class="livelike-voting-image-container">
-            <livelike-description></livelike-description>
-          </div>
               <div class="livelike-voting-input-container">
                 <input 
                   class="livelike-voting-number-input user-number-input"
@@ -75,6 +72,7 @@ ${this.options.map((option, idx) => {
                   ?disabled="${this.disabled || this.voteDisable}"
                 />
               </div>
+              
               </livelike-option>
     `;
         })}
