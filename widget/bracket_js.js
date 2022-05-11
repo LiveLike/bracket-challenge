@@ -12,11 +12,13 @@ LiveLike.init({
 
 var widgetIds = []
 var roundsArr = []
+let textPredictionWidgetIdArr = []
 const widgetContainer = setupWidgetContainer()
 
 function setupWidgetContainer() {
     let widgetContainer = document.querySelectorAll('livelike-widgets');
     widgetContainer.forEach(container => {
+        container.customWidgetRenderer = customWidgetRenderer;
         LiveLike.registerWidgetMode(
             'customTimeline',
             ({ widget }) => {
@@ -35,31 +37,11 @@ const setWidgetPhase = (widget) => {
     getWidgetVote(widget.program_id, [{ kind: widget.kind, id: widget.widgetId }]).then(interactions => {
         if (interactions[widget.kind] && interactions[widget.kind].length > 0) {
             const widgetInteraction = interactions[widget.kind][0];
-            setWidgetInteraction(widgetInteraction, widget);
-            //widget.results()
+            widget.updateOptions(widgetInteraction)
+            widget.results()
+            processNextWidgetOnPrediction(widget.widgetId, widget.options)
         } else {
-            // widget.addEventListener('vote', function (e) {
-            //     //Add widgetid to set
-            //     enableSubmitButton()
-            // })
-            // if (widget.timeout) {
-            //     var date = new Date(widget.widgetPayload.published_at)
-            //     var curr = Date.now()
-            //     //curr = curr.getTime() / 1000;
-            //     var expiry_date = new Date(date.valueOf() + convertDuration(widget.widgetPayload.timeout))
-            //     expiry_date = expiry_date.getTime()
-            //     var isValid = curr < expiry_date
-            //     const diff = expiry_date - curr;
-
-            //     if (isValid)//&& timeout expired
-            //     {
-            //         widget.interactive({ timeout: diff }).then(widget.results);
-            //     }
-            //     else {
-            //         widget.results()
-            //     }
-            // }
-
+            widget.interactive()
         }
     })
 }
@@ -71,44 +53,94 @@ function getWidgetVote(program_id, widgetArr) {
     })
 }
 
-const setWidgetInteraction = (interaction, widget) => {
-    const optionOrChoice = interaction.option_id || interaction.choice_id;
-    if (optionOrChoice) {
-        const selectedOption = { id: optionOrChoice };
-        if (interaction.hasOwnProperty("is_correct")) {
-            selectedOption.is_correct = interaction.is_correct;
-        }
-        widget.selectedOption = selectedOption;
-    }
-    if (interaction.magnitude)
-        widget.average_magnitude = interaction.magnitude;
-};
+
 
 function registerCustomTimeline() {
     // Gets initial list of widgets
     LiveLike.getWidgets({
-        programId: "8a0c4ed4-d106-464f-9d9c-d3605801f2b3",
+        programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
-        widgetKinds: ["text-prediction"],
-        ordering: "recent", //Valid ordering values are 'recent'
+        widgetKinds: ["image-number-prediction"],
+        ordering: "", //Valid ordering values are 'recent'
         interactive: true  //Valid interactive values are true, false
     }).then(({ results }) => {
-        let nextRoundIndex = renderFirstRoundWidgets(results)
-        roundsArr[0] = nextRoundIndex
-        let arrayIndex = 0
-        while (roundsArr[arrayIndex] < results.length) {
-            arrayIndex++
-            roundsArr[arrayIndex] = roundsArr[arrayIndex - 1] + (nextRoundIndex / (arrayIndex * 2))
-        }
 
-        renderRemainingRounds(results)
+        var numberPredsResults = results
+        //get text prediction widgets and map it with number widgets
+        LiveLike.getWidgets({
+            programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
+            status: "published", //Valid status values are 'scheduled', 'pending', 'published'
+            widgetKinds: ["text-prediction"],
+            ordering: "", //Valid ordering values are 'recent'
+            interactive: true  //Valid interactive values are true, false
+        }).then(({ results }) => {
+
+            let widgetContainer = document.querySelector('#placeHolder')
+            results.forEach(
+                widgetPayload => {
+                    textPredictionWidgetIdArr[textPredictionWidgetIdArr.length] = widgetPayload.id
+                    widgetContainer.showWidget({
+                        widgetPayload,
+                        mode: ({ widget }) => {
+                            return widgetContainer.attach(widget, 'append')
+                        },
+                        initialLoad: true
+                    })
+                })
+
+            let nextRoundIndex = renderFirstRoundWidgets(numberPredsResults)
+            roundsArr[0] = nextRoundIndex
+            let arrayIndex = 0
+            while (roundsArr[arrayIndex] < numberPredsResults.length) {
+                arrayIndex++
+                roundsArr[arrayIndex] = roundsArr[arrayIndex - 1] + (nextRoundIndex / (arrayIndex * 2))
+            }
+
+            renderRoundTwo(numberPredsResults)
+            renderRoundThree(numberPredsResults)
+            //renderRemainingRounds(numberPredsResults)
+        });
     })
+}
+
+function renderRoundTwo(results) {
+    let index = 0
+    //for (let i = 1; i < roundsArr.length; i++) {
+        let roundTwoLength = roundsArr[1] - roundsArr[0]
+        let roundTwoHalfWay = roundTwoLength / 2
+        let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
+        let roundTwoRightContainer = document.querySelector('#roundTwoRight')
+        roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
+        roundTwoRightContainer.customWidgetRenderer = customWidgetRenderer;
+
+        for (index = roundsArr[0]; index < roundsArr[1]; index++) {
+            let widgetPayload = results[index]
+            widgetIds[index] = widgetPayload.id
+
+            if(index < (roundsArr[0] + roundTwoHalfWay)){
+                initWidget(roundTwoLeftContainer,widgetPayload)
+            } else {
+                initWidget(roundTwoRightContainer,widgetPayload)
+            }
+        }
+    //}
+}
+
+function renderRoundThree(results) {
+    let index = 0
+    //for (let i = 1; i < roundsArr.length; i++) {
+        let roundFinalContainer = document.querySelector('#final')
+        for (index = roundsArr[1]; index < roundsArr[2]; index++) {
+            let widgetPayload = results[index]
+            widgetIds[index] = widgetPayload.id
+            initWidget(roundFinalContainer,widgetPayload)
+        }
+    //}
 }
 
 function renderRemainingRounds(results) {
     let index = 0
     for (let i = 1; i < roundsArr.length; i++) {
-        widgetContainer[i].customWidgetRenderer = customWidgetRenderer;
         for (index = roundsArr[i - 1]; index < roundsArr[i]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
@@ -128,21 +160,23 @@ function renderRemainingRounds(results) {
 
 function renderFirstRoundWidgets(results) {
     let nextRoundIndex = 0
+    //widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
+    let roundOneContainerLeft = document.querySelector("#roundOneLeft")
+    let roundOneContainerRight = document.querySelector("#roundOneRight")
+    roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
+    roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
+
+    let halfWayMark = results.length / 4
     results.forEach(
         widgetPayload => {
             if (isInitialRound(widgetPayload)) {
                 widgetIds[nextRoundIndex] = widgetPayload.id
+                if (nextRoundIndex < halfWayMark) {
+                    initWidget(roundOneContainerLeft, widgetPayload)
+                } else {
+                    initWidget(roundOneContainerRight, widgetPayload)
+                }
                 nextRoundIndex = nextRoundIndex + 1
-                widgetContainer[0].showWidget({
-                    widgetPayload,
-                    mode: ({ widget }) => {
-                        return widgetContainer[0].attach(widget, 'append').then(() => {
-                            setWidgetPhase(widget)
-                            //widget.interactive()
-                        })
-                    },
-                    initialLoad: true
-                })
             }
         }
     )
@@ -150,22 +184,42 @@ function renderFirstRoundWidgets(results) {
     return nextRoundIndex
 }
 
+function initWidget(container, widgetPayload) {
+    container.showWidget({
+        widgetPayload,
+        mode: ({ widget }) => {
+            return container.attach(widget, 'append').then(() => {
+                setWidgetPhase(widget)
+                //widget.interactive()
+            })
+        },
+        initialLoad: true
+    })
+}
+
 document.addEventListener("widgetattached", function (e) {
-    e.detail.element.addEventListener('prediction', (e) => {
-        processNextWidgetOnPrediction(e.detail.widget.id, e.detail.widget.options, e.detail.prediction.option_id)
+    e.detail.element.showOptions(isInitialRound(e.detail.widget))
+    e.detail.element.addEventListener('number-prediction', (e) => {
+        processNextWidgetOnPrediction(e.detail.widget.id, e.detail.widget.options)
 
     })
 });
 
-function processNextWidgetOnPrediction(widgetId, options, predictionId) {
+function processNextWidgetOnPrediction(widgetId, options) {
 
-    let selectedOption = options.find(function (element) {
-        return element.id === predictionId
-    }).description
+    let maxVotedOptions = options[0]
+    options.forEach(option => {
+        if (option.number > maxVotedOptions.number) {
+            maxVotedOptions = option
+        }
+    })
 
     let widgetIndexInArr = widgetIds.findIndex(function (element) {
         return element === widgetId;
     });
+
+    //Set Winner of Text Prediction Widget. 
+    selectOptionOnTextPrediction(widgetIndexInArr, maxVotedOptions.description)
 
     let roundIndexInArr = roundsArr.findIndex(function (element) {
         return element > widgetIndexInArr;
@@ -194,8 +248,18 @@ function processNextWidgetOnPrediction(widgetId, options, predictionId) {
         return
     }
 
-    let selectedOptionInNewWidget = selectUnSelectNewOption(isSlotOne, widgetElm, selectedOption)
-    setWidgetTitle(widgetElm)
+    selectUnSelectNewOption(isSlotOne, widgetElm, maxVotedOptions.description)
+    //setWidgetTitle(widgetElm)
+}
+
+function selectOptionOnTextPrediction(widgetIndexInArr, selectedOption) {
+    let textPredictionWidgetId = textPredictionWidgetIdArr[widgetIndexInArr]
+    let textPredWidgetElm = document.querySelectorAll(`[widgetid='${textPredictionWidgetId}']`)[0]
+    let optionsArr = textPredWidgetElm.querySelectorAll('livelike-option')
+    let txtWidgetSelectedOption = Array.from(optionsArr).find(function (element) {
+        return element.__item.description === selectedOption
+    })
+    txtWidgetSelectedOption.optionSelected()
 }
 
 function isInitialRound(widgetPayload) {

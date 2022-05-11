@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Bracket Demo</title>
+</head>
+
+<body>
+    <div id="program_name" style="display: block;">
+        <input type="text" placeholder="Program Name" value="" id="bracket-name" />
+        <button id="generate-program-button">Create Program</button>
+    </div>
+
+    <div id="team_area" style="display: none;">
+        <select id="select-number-of-teams">
+            <option>0</option>
+            <option>4</option>
+            <option selected>8</option>
+            <option>16</option>
+            <option>32</option>
+            <option>64</option>
+        </select>
+        <button id="generate-widgets-button">Generate Widgets</button>
+        <ol id="teams-list">
+            <li><input type="text" placeholder="team ${i} name" value="a" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/e063c95c-3354-4672-8551-a05c75cf15ba.png" />
+            </li>
+            <li><input type="text" placeholder="team ${i} name" value="b" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/ccda3f86-687e-42e8-9c84-651fa8ead3f5.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="c" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/edaebfad-c73b-4b17-9574-3a8311b01c8c.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="d" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/81735360-0c58-45be-adbd-5e86646a039f.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="e" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/5fdbeebe-46c1-4f8c-b008-d6bb896ada89.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="f" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/789c4e64-d034-487b-8083-0af6d1efec4a.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="g" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/4f40685b-b96c-409c-beae-6a76edbabf2b.png"
+                    </li>
+            <li><input type="text" placeholder="team ${i} name" value="h" /> <input type="text"
+                    placeholder="team ${i} icon url"
+                    value="https://cf-blast-storage.livelikecdn.com/assets/7a973476-02f9-4b09-aa65-4091f0ceae76.png"
+                    </li>
+        </ol>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

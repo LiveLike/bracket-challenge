@@ -1,0 +1,91 @@
+body {
+    background: linear-gradient(#213550 30%, #091932, #031430 91%);
+}
+
+.livelike-voting-input-container {justify-content: start !important}
+
+.livelike-voting-number-input {font-size: 40px !important; font-weight: bold}
+
+livelike-footer {
+    background-color: transparent !important;
+}
+
+input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;}
+
+.user-number-input{
+    color:white !important
+}
+
+button.predict-button {
+    margin: 0.1rem 0rem 0rem 0rem;
+}
+
+livelike-widget-root.custom-widget {
+    margin: 80px 4px 0px 0px;
+}
+
+livelike-widget-body {
+    background: transparent;
+}
+
+.livelike-voting-input-container {
+    justify-content: start;
+}
+
+.livelike-option-start{
+    align-items: flex-start;
+    padding: 0;
+    border: 0px;
+}
+
+.livelike-option-end {
+    align-items: flex-end;
+    padding: 0;
+    border: 0px;
+}
+
+livelike-footer {
+    background: transparent;
+}
+
+#leftbox {
+    float: left;
+    width: 16%;
+    margin: 10px 0px 0px 100px;
+    height: 100%;
+}
+
+#middlebox {
+    float: left;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
+}
+
+#rightbox {
+    float: left;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
+}
+
+#leftbox_1 {
+    float: left;
+    width: 16%;
+    margin: 10px 0px 0px 0px;
+    height: 100%;
+}
+
+#middlebox_1 {
+    float: left;
+    width: 16%;
+    margin: 120px 0px 0px 0px;
+    height: 100%;
+}
+
+#rightbox_1 {
+    float: left;
+    width: 16%;
+    margin: 160px 0px 0px 0px;
+    height: 100%;
+}
