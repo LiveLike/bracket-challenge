@@ -12,20 +12,6 @@
 </head>
 
 <body>
-
-    <div class="container header-container">
-        <p>Bracket Challenge</p>
-        <div class="header-row">
-            <div class="header-row-left">
-                Provided by&nbsp;
-            </div>
-            <div class="header-row-right">
-                <img height="20px" src="livelike-logo-white.png" />
-            </div>
-            <br />
-        </div>
-    </div>
-
     <div class="container">
         <div id="alert_w_leaderboard" style="display: none;" class="alert alert-success">
             <strong>All Done!</strong> Click <a href="#" class="alert-link">here to see leaderboard</a>.
@@ -64,8 +50,11 @@
                     </livelike-widgets>
                 </div>
                 <div id="rightbox" class="col">
+                    <img src="playoffs_lnb.png" style="margin-bottom:60px" width="180px" height="180px"/>
                     <livelike-widgets id="final" class="float-child" mode="customTimeline">
                     </livelike-widgets>
+                    <img src="lnb.svg" style="margin-top:76px" width="180px" height="86px"/>
+                    <img src="lnbhashtag.png" style="margin-top:16px" width="280px" height="18px"/>
                 </div>
                 <div id="rightbox_1" class="col">
                     <livelike-widgets id="roundTwoRight" class="float-child" mode="customTimeline">
@@ -85,7 +74,8 @@
         </div>
         <div id="leaderboard_tab" style="display: none;">
             <div class="leaderboard-container">
-                <button type="button" class="close" data-dismiss="modal" style="float:right" id="leaderboard_close">×</button>
+                <button type="button" class="close" data-dismiss="modal" style="float:right"
+                    id="leaderboard_close">×</button>
                 <table class="leaderboard-table">
                     <thead>
                         <th><b>Rank</b></th>

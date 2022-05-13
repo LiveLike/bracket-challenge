@@ -21,7 +21,11 @@ button.predict-button {
 }
 
 livelike-widget-root.custom-widget {
-    margin: 80px 4px 0px 0px;
+    margin: 4px 4px 0px 0px;
+}
+
+livelike-widget-root.custom-widget-extra-margin {
+    margin: 220px 4px 0px 0px;
 }
 
 livelike-widget-body {
@@ -53,11 +57,11 @@ livelike-footer {
 }
 
 #middlebox {
-    margin: 160px 0px 0px 0px;
+    margin: 220px 0px 0px 0px;
 }
 
 #rightbox {
-    margin: 160px 0px 0px 0px;
+    margin: 20px 0px 0px 0px;
 }
 
 #leftbox_1 {
@@ -65,11 +69,11 @@ livelike-footer {
 }
 
 #middlebox_1 {
-    margin: 120px 0px 0px 0px;
+    margin: 220px 0px 0px 0px;
 }
 
 #rightbox_1 {
-    margin: 160px 0px 0px 0px;
+    margin: 220px 0px 0px 0px;
 }
 
 .profile-container {
@@ -149,4 +153,6 @@ livelike-footer {
   .leaderboard-table td {
     padding: 8px;
   }
+  
+  .livelike-voting-input-container {height: 80px;}
   

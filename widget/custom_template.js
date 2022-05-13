@@ -72,9 +72,13 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
     render() {
         let index = 0
         let halfIndex = this.options.length / 2
+        let rootClassName = "custom-widget"
+        if(this.widgetPayload.extraMargin === true) {
+            rootClassName = "custom-widget-extra-margin"
+        }
         return html`
 <template kind="text-prediction">
-<livelike-widget-root class="custom-widget">
+<livelike-widget-root class="${rootClassName}">
 <livelike-widget-body>
 ${this.options.map((option, idx) => {
             index++
@@ -82,7 +86,7 @@ ${this.options.map((option, idx) => {
             const correct = option.number === option.correct_number;
             return html`
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
-            <livelike-image height="100px" width="100px"></livelike-image>
+            <livelike-image height="80px" width="80px"></livelike-image>
               <div class="livelike-voting-input-container">
                               
                 <input 

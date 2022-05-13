@@ -185,10 +185,15 @@ function renderFirstRoundWidgets(results) {
     roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
 
     let halfWayMark = results.length / 4
+    let index = 1
     results.forEach(
         widgetPayload => {
             if (isInitialRound(widgetPayload)) {
                 widgetIds[nextRoundIndex] = widgetPayload.id
+                if(index % 2 == 0) {
+                    widgetPayload.extraMargin = true
+                } 
+                index++
                 if (nextRoundIndex < halfWayMark) {
                     initWidget(roundOneContainerLeft, widgetPayload)
                 } else {
