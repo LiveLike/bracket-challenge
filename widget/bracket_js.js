@@ -8,6 +8,9 @@
 var widgetIds = []
 var roundsArr = []
 let textPredictionWidgetIdArr = []
+const widgetInteractionSet = new Set();
+let totalNoOfWidgets = 0
+
 const widgetContainer = setupWidgetContainer()
 
 function setupWidgetContainer() {
@@ -35,6 +38,7 @@ const setWidgetPhase = (widget) => {
             widget.updateOptions(widgetInteraction)
             widget.results()
             processNextWidgetOnPrediction(widget.widgetId, widget.options)
+            checkIfAllPredictionsDone()
         } else {
             //If follow up is present then enter into result
             widget.options.forEach(option =>{
@@ -81,6 +85,7 @@ function registerCustomTimeline() {
     }).then(({ results }) => {
 
         var numberPredsResults = results
+        totalNoOfWidgets = results.length
         //get text prediction widgets and map it with number widgets
         LiveLike.getWidgets({
             programId: programId,
@@ -214,11 +219,22 @@ document.addEventListener("widgetattached", function (e) {
     e.detail.element.showOptions(isInitialRound(e.detail.widget))
     e.detail.element.addEventListener('number-prediction', (e) => {
         processNextWidgetOnPrediction(e.detail.widget.id, e.detail.widget.options)
+        checkIfAllPredictionsDone()
 
     })
 });
 
+function checkIfAllPredictionsDone() {
+    if(widgetInteractionSet.size == totalNoOfWidgets) {
+        //All preds done
+        //alert("All Predictions done")
+        document.getElementById("alert_w_leaderboard").style.display = 'block'
+    }
+}
+
 function processNextWidgetOnPrediction(widgetId, options) {
+
+    widgetInteractionSet.add(widgetId)
 
     let maxVotedOptions = options[0]
     options.forEach(option => {

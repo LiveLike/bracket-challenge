@@ -89,7 +89,8 @@ ${this.options.map((option, idx) => {
                   class="livelike-voting-number-input user-number-input"
                   type="number" 
                   placeholder="-"
-                  oninput="this.value=this.value.slice(0,1)"
+                  oninput="(!validity.rangeOverflow||(value=2)) && (!validity.rangeUnderflow||(value=1)) &&
+                  (!validity.stepMismatch||(value=parseInt(this.value)));"
                   .value="${option.number}"
                   min="1" 
                   max="2"
