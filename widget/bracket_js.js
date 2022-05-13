@@ -4,11 +4,6 @@
 //render next round 2 widgets without options
 //render next round 2 widgets without options
 
-LiveLike.init({
-    clientId: 'mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5',
-}).then(() => {
-    registerCustomTimeline()
-});
 
 var widgetIds = []
 var roundsArr = []
@@ -41,6 +36,14 @@ const setWidgetPhase = (widget) => {
             widget.results()
             processNextWidgetOnPrediction(widget.widgetId, widget.options)
         } else {
+            //If follow up is present then enter into result
+            widget.options.forEach(option =>{
+                if(option.correct_number  !== null){
+                    widget.results()
+                    return
+                }
+            })
+            
             widget.interactive()
         }
     })
@@ -54,11 +57,23 @@ function getWidgetVote(program_id, widgetArr) {
 }
 
 
+function listenToFollowUpWidget(){
+    LiveLike.addWidgetListener(
+        {programId: programId}, 
+        (e) => {
+            let imagePredWidgetId = e.widgetPayload.image_number_prediction_id
+            queryWidgetUsingId(imagePredWidgetId).updateFollowUp(e.widgetPayload.options)
+        }
+      );
+}
 
 function registerCustomTimeline() {
+
+    listenToFollowUpWidget() 
+
     // Gets initial list of widgets
     LiveLike.getWidgets({
-        programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
+        programId: programId,
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
         ordering: "", //Valid ordering values are 'recent'
@@ -68,7 +83,7 @@ function registerCustomTimeline() {
         var numberPredsResults = results
         //get text prediction widgets and map it with number widgets
         LiveLike.getWidgets({
-            programId: "2c940046-9173-4bb9-80f8-82148e695f4b",
+            programId: programId,
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
             ordering: "", //Valid ordering values are 'recent'
@@ -87,7 +102,6 @@ function registerCustomTimeline() {
                         initialLoad: true
                     })
                 })
-
             let nextRoundIndex = renderFirstRoundWidgets(numberPredsResults)
             roundsArr[0] = nextRoundIndex
             let arrayIndex = 0
@@ -98,7 +112,6 @@ function registerCustomTimeline() {
 
             renderRoundTwo(numberPredsResults)
             renderRoundThree(numberPredsResults)
-            //renderRemainingRounds(numberPredsResults)
         });
     })
 }
@@ -242,14 +255,17 @@ function processNextWidgetOnPrediction(widgetId, options) {
 
     let calculatedIndex = ((widgetIndexInArr - prevSlotEnd) / 2) + currentSlotEnd
     let widgetIdTobeInteracted = widgetIds[Math.floor(calculatedIndex)]
-    let widgetElm = document.querySelectorAll(`[widgetid='${widgetIdTobeInteracted}']`)[0]
+    let widgetElm = queryWidgetUsingId(widgetIdTobeInteracted)
 
     if (!widgetElm) {
         return
     }
 
     selectUnSelectNewOption(isSlotOne, widgetElm, maxVotedOptions.description)
-    //setWidgetTitle(widgetElm)
+}
+
+function queryWidgetUsingId(widgetIdTobeInteracted) {
+    return document.querySelectorAll(`[widgetid='${widgetIdTobeInteracted}']`)[0]
 }
 
 function selectOptionOnTextPrediction(widgetIndexInArr, selectedOption) {
