@@ -119,3 +119,34 @@ livelike-footer {
     width: 50%;
     font-size: 0.7em;
   }
+
+  .leaderboard-table tbody {
+    background-color: #f2f3f7;
+  
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px;
+  }
+
+  .leaderboard-table {
+    text-align: left;
+    table-layout: auto;
+    width: 100%;
+  }
+  
+  .leaderboard-table > thead {
+    color: white;
+  }
+
+  .leaderboard-table tbody {
+    background-color: #f2f3f7;
+  
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px;
+  }
+  
