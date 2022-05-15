@@ -128,13 +128,14 @@ function renderRoundTwo(results) {
         let roundTwoHalfWay = roundTwoLength / 2
         let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
         let roundTwoRightContainer = document.querySelector('#roundTwoRight')
+        //roundTwoLeftContainer.customWidgetRenderer = leftPanelCustomWidgetRenderer;
         roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
         roundTwoRightContainer.customWidgetRenderer = customWidgetRenderer;
 
         for (index = roundsArr[0]; index < roundsArr[1]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
-
+            widgetPayload.positionCenter = true
             if(index < (roundsArr[0] + roundTwoHalfWay)){
                 initWidget(roundTwoLeftContainer,widgetPayload)
             } else {
@@ -148,9 +149,11 @@ function renderRoundThree(results) {
     let index = 0
     //for (let i = 1; i < roundsArr.length; i++) {
         let roundFinalContainer = document.querySelector('#final')
+        roundFinalContainer.customWidgetRenderer = customWidgetRenderer;
         for (index = roundsArr[1]; index < roundsArr[2]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
+            widgetPayload.positionCenter = true
             initWidget(roundFinalContainer,widgetPayload)
         }
     //}
@@ -181,6 +184,7 @@ function renderFirstRoundWidgets(results) {
     //widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
     let roundOneContainerLeft = document.querySelector("#roundOneLeft")
     let roundOneContainerRight = document.querySelector("#roundOneRight")
+    //roundOneContainerLeft.customWidgetRenderer = leftPanelCustomWidgetRenderer;
     roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
     roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
 
@@ -233,7 +237,7 @@ function checkIfAllPredictionsDone() {
     if(widgetInteractionSet.size == totalNoOfWidgets) {
         //All preds done
         //alert("All Predictions done")
-        document.getElementById("alert_w_leaderboard").style.display = 'block'
+        // document.getElementById("alert_w_leaderboard").style.display = 'block'
     }
 }
 

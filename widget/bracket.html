@@ -39,39 +39,56 @@
                 <p class="small-text">*mandatory fields</p>
             </div>
         </div>
+        
         <div id="bracket_tab">
             <div class="row">
+                <div class="col-auto"> 
+                    <img id="quarter_1" src="quarter_1.png" width="18px" height="180px">
+                </div> 
                 <div id="leftbox" class="col">
                     <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
+
+                <div class="col-auto">
+                    <img id="semi_1" src="semi_1.png">
+                </div>
+                
                 <div id="middlebox" class="col">
                     <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
                 <div id="rightbox" class="col">
                     <img src="playoffs_lnb.png" style="margin-bottom:60px" width="180px" height="180px"/>
-                    <livelike-widgets id="final" class="float-child" mode="customTimeline">
+                    <livelike-widgets id="final"  mode="customTimeline">
                     </livelike-widgets>
-                    <img src="lnb.svg" style="margin-top:76px" width="180px" height="86px"/>
-                    <img src="lnbhashtag.png" style="margin-top:16px" width="280px" height="18px"/>
+                    <img src="lnb.svg" style="position: absolute; top:75%" width="180px" height="86px"/>
+                    <img src="lnbhashtag.png" style="position: absolute; top:87%" width="280px" height="18px"/>
+                    
                 </div>
                 <div id="rightbox_1" class="col">
-                    <livelike-widgets id="roundTwoRight" class="float-child" mode="customTimeline">
+                    <livelike-widgets id="roundTwoRight"  mode="customTimeline">
                     </livelike-widgets>
+                </div>
+                <div class="col-auto">
+                    <img id="semi_2" src="semi_2.png">
                 </div>
                 <div id="leftbox_1" class="col">
                     <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
+                <div class="col-auto"> 
+                    <img id="quarter_2" src="quarter_2.png"  width="18px" height="180px">
+                </div> 
+            
             </div>
-
             <div style="display: none;">
                 <livelike-widgets id="placeHolder" mode="customTimeline">
                 </livelike-widgets>
 
-            </div>
+
         </div>
+    
         <div id="leaderboard_tab" style="display: none;">
             <div class="leaderboard-container">
                 <button type="button" class="close" data-dismiss="modal" style="float:right"
@@ -95,6 +112,7 @@
 
 
     <script src="custom_template.js"></script>
+    <script src="left_round_custom_template.js"></script>
     <script src="bracket_js.js"></script>
     <script src="profile.js"></script>
 

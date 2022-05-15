@@ -160,13 +160,13 @@ const setupLeaderboard = (leaderboardId => {
   };
 
 
-  document.getElementsByClassName('alert-link')[0].onclick = function(){
-    updateLeaderboardData()
-  }
+  // document.getElementsByClassName('alert-link')[0].onclick = function(){
+  //   updateLeaderboardData()
+  // }
 
-  document.getElementById('leaderboard_close').onclick = function(){
-    showChallengeTab()
-  }
+  // document.getElementById('leaderboard_close').onclick = function(){
+  //   showChallengeTab()
+  // }
   
   const updateLeaderboardData = () => {
     document.getElementById('bracket_tab').style.display = 'none'
