@@ -182,14 +182,22 @@ livelike-footer {
   
   img#quarter_1 {
     position: absolute;
-    top: 38%;
+    top: 42%;
     
   }
 
   img#quarter_2 {
     position: absolute;
-    top: 38%;
+    top: 42%;
     
+  }
+
+  .red {
+    color:red !important;
+  }
+  
+  .green {
+    color:green !important;
   }
 
   img#semi_1 {height: 180px;position: absolute;top: 1%; width: 18px; height: 180px;}

@@ -110,6 +110,7 @@ ${this.options.map((option, idx) => {
                 />
               
                 <input 
+                    style="visibility:${option.correct_number !== null ? "visible" : "hidden"}"
                     class="livelike-voting-number-input correct-number-input"
                     type="number" 
                     placeholder="-"
