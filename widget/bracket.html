@@ -39,94 +39,88 @@
                 <p class="small-text">*mandatory fields</p>
             </div>
         </div>
-        
+
         <div id="bracket_tab">
             <div class="row">
-                <div class="col-auto"> 
+                <div class="col-auto">
                     <img id="quarter_1" src="quarter_1.png" width="18px" height="180px">
-                </div> 
+                </div>
                 <div id="leftbox" class="col">
                     <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
 
-                <div class="col-auto">
-                    <img id="semi_1" src="semi_1.png">
-                </div>
-                
                 <div id="middlebox" class="col">
                     <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
                 <div id="rightbox" class="col">
-                    <img src="playoffs_lnb.png" style="margin-bottom:60px" width="180px" height="180px"/>
-                    <livelike-widgets id="final"  mode="customTimeline">
+                    <img src="playoffs_lnb.png" style="margin-bottom:60px" width="180px" height="180px" />
+                    <livelike-widgets id="final" mode="customTimeline">
                     </livelike-widgets>
-                    <img src="lnb.svg" style="position: absolute; top:75%" width="180px" height="86px"/>
-                    <img src="lnbhashtag.png" style="position: absolute; top:87%" width="280px" height="18px"/>
-                    
+                    <img src="lnb.svg" style="position: absolute; top:75%" width="180px" height="86px" />
+                    <img src="lnbhashtag.png" style="position: absolute; top:87%" width="280px" height="18px" />
+
                 </div>
                 <div id="rightbox_1" class="col">
-                    <livelike-widgets id="roundTwoRight"  mode="customTimeline">
+                    <livelike-widgets id="roundTwoRight" mode="customTimeline">
                     </livelike-widgets>
                 </div>
-                <div class="col-auto">
-                    <img id="semi_2" src="semi_2.png">
-                </div>
+
                 <div id="leftbox_1" class="col">
                     <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
                     </livelike-widgets>
                 </div>
-                <div class="col-auto"> 
-                    <img id="quarter_2" src="quarter_2.png"  width="18px" height="180px">
-                </div> 
-            
+                <div class="col-auto">
+                    <img id="quarter_2" src="quarter_2.png" width="18px" height="180px">
+                </div>
+
             </div>
             <div style="display: none;">
                 <livelike-widgets id="placeHolder" mode="customTimeline">
                 </livelike-widgets>
 
 
-        </div>
-    
-        <div id="leaderboard_tab" style="display: none;">
-            <div class="leaderboard-container">
-                <button type="button" class="close" data-dismiss="modal" style="float:right"
-                    id="leaderboard_close">×</button>
-                <table class="leaderboard-table">
-                    <thead>
-                        <th><b>Rank</b></th>
-                        <th><b>Player</b></th>
-                        <th><b>Score</b></th>
-                    </thead>
-                    <tbody class="leaderboard-entries-container"> </tbody>
-                </table>
+            </div>
+
+            <div id="leaderboard_tab" style="display: none;">
+                <div class="leaderboard-container">
+                    <button type="button" class="close" data-dismiss="modal" style="float:right"
+                        id="leaderboard_close">×</button>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <th><b>Rank</b></th>
+                            <th><b>Player</b></th>
+                            <th><b>Score</b></th>
+                        </thead>
+                        <tbody class="leaderboard-entries-container"> </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="https://unpkg.com/@livelike/engagementsdk/livelike.umd.js"></script>
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> <!-- For Internet Explorer compatibility -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/@livelike/engagementsdk/livelike.umd.js"></script>
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> <!-- For Internet Explorer compatibility -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
 
 
-    <script src="custom_template.js"></script>
-    <script src="left_round_custom_template.js"></script>
-    <script src="bracket_js.js"></script>
-    <script src="profile.js"></script>
+        <script src="custom_template.js"></script>
+        <script src="left_round_custom_template.js"></script>
+        <script src="bracket_js.js"></script>
+        <script src="profile.js"></script>
 
-    <script>
-        const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
+        <script>
+            const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
 
-        const programId = "21c4341b-24b5-4b56-b284-7ba78d9693a9";
-        const leaderboardId = '67b7ef06-f006-498e-adfa-38f57dcfff55';
+            const programId = "21c4341b-24b5-4b56-b284-7ba78d9693a9";
+            const leaderboardId = '67b7ef06-f006-498e-adfa-38f57dcfff55';
 
-        // const programId = "078dac72-554e-4f52-8db4-fd592e59439d"
-        // const leaderboardId="c17a872c-bc4d-47d0-8d3c-d08cfba8ed09";
+            // const programId = "078dac72-554e-4f52-8db4-fd592e59439d"
+            // const leaderboardId="c17a872c-bc4d-47d0-8d3c-d08cfba8ed09";
 
-        init(clientId, programId, leaderboardId);
-    </script>
+            init(clientId, programId, leaderboardId);
+        </script>
 </body>
 
 </html>

@@ -81,7 +81,8 @@ class LeftCustomImagePrediction extends LiveLikeNumberPrediction {
         }
         return html`
 <template kind="text-prediction">
-<livelike-widget-root class="${rootClassName}">
+<livelike-widget-root style="display:flex; flex-direction:row" class="${rootClassName}">
+<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" id="semi_1" src="semi_1.png">
 <livelike-widget-body>
 
 ${this.options.map((option, idx) => {
@@ -132,11 +133,11 @@ ${this.options.map((option, idx) => {
 `;
     }
 }
-//customElements.define("left-custom-image-prediction", LeftCustomImagePrediction);
+customElements.define("left-custom-image-prediction", LeftCustomImagePrediction);
 
-// const leftPanelCustomWidgetRenderer = (args) => {
-//     let widgetPayload = args.widgetPayload;
-//     if (widgetPayload.kind === 'image-number-prediction') {
-//         return document.createElement('left-custom-image-prediction');
-//     }
-// }
+const leftPanelCustomWidgetRenderer = (args) => {
+    let widgetPayload = args.widgetPayload;
+    if (widgetPayload.kind === 'image-number-prediction') {
+        return document.createElement('left-custom-image-prediction');
+    }
+}

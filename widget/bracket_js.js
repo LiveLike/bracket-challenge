@@ -128,14 +128,16 @@ function renderRoundTwo(results) {
         let roundTwoHalfWay = roundTwoLength / 2
         let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
         let roundTwoRightContainer = document.querySelector('#roundTwoRight')
-        //roundTwoLeftContainer.customWidgetRenderer = leftPanelCustomWidgetRenderer;
-        roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
+        roundTwoLeftContainer.customWidgetRenderer = leftPanelCustomWidgetRenderer;
+        //roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
         roundTwoRightContainer.customWidgetRenderer = customWidgetRenderer;
 
         for (index = roundsArr[0]; index < roundsArr[1]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
             widgetPayload.positionCenter = true
+            widgetPayload.isSemiFinal = true
+
             if(index < (roundsArr[0] + roundTwoHalfWay)){
                 initWidget(roundTwoLeftContainer,widgetPayload)
             } else {
@@ -184,8 +186,8 @@ function renderFirstRoundWidgets(results) {
     //widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
     let roundOneContainerLeft = document.querySelector("#roundOneLeft")
     let roundOneContainerRight = document.querySelector("#roundOneRight")
-    //roundOneContainerLeft.customWidgetRenderer = leftPanelCustomWidgetRenderer;
-    roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
+    roundOneContainerLeft.customWidgetRenderer = leftPanelCustomWidgetRenderer;
+    //roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
     roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
 
     let halfWayMark = results.length / 4
@@ -237,7 +239,7 @@ function checkIfAllPredictionsDone() {
     if(widgetInteractionSet.size == totalNoOfWidgets) {
         //All preds done
         //alert("All Predictions done")
-        // document.getElementById("alert_w_leaderboard").style.display = 'block'
+        document.getElementById("alert_w_leaderboard").style.display = 'block'
     }
 }
 

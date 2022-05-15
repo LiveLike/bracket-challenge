@@ -79,9 +79,11 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
         if(this.widgetPayload.positionCenter === true) {
             rootClassName = "custom-widget-position-center"
         }
+        
         return html`
 <template kind="text-prediction">
-<livelike-widget-root class="${rootClassName}">
+<livelike-widget-root style="display:flex; flex-direction:row-reverse" class="${rootClassName}">
+<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" id="semi_2" src="semi_2.png">
 <livelike-widget-body>
 
 ${this.options.map((option, idx) => {
@@ -118,7 +120,7 @@ ${this.options.map((option, idx) => {
               </livelike-option>
     `;
         })}
-  <livelike-footer>
+  <livelike-footer class="right-livelike-footer ">
   <button
                     class="predict-button"
                     @click=${() => this.validateAndSubmitVote(this.options)}
