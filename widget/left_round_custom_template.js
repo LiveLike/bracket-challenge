@@ -97,10 +97,10 @@ ${this.options.map((option, idx) => {
                   class="livelike-voting-number-input user-number-input"
                   type="number" 
                   placeholder="-"
-                  oninput="(!validity.rangeOverflow||(value=2)) && (!validity.rangeUnderflow||(value=1)) &&
+                  oninput="(!validity.rangeOverflow||(value=2)) && (!validity.rangeUnderflow||(value=0)) &&
                   (!validity.stepMismatch||(value=parseInt(this.value)));"
                   .value="${option.number}"
-                  min="1" 
+                  min="0" 
                   max="2"
                   maxlength="1"
                   @keypress=${this.keypressHandler}
@@ -125,8 +125,7 @@ ${this.options.map((option, idx) => {
                     class="predict-button"
                     @click=${() => this.validateAndSubmitVote(this.options)}
                     ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
-                  >${this.owner.localize("widget.numberPrediction.voteButton.label")}</button>
-                  ${this.disabled && (this.vote || this.interaction) ? html`<span class="voted-text">${this.owner.localize("widget.numberPrediction.votedText")}</span>` : null}  
+                  >Valider</button>
                   </livelike-widget-footer>
                   </livelike-widget-body>
 </livelike-widget-root>

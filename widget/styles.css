@@ -205,3 +205,7 @@ livelike-footer {
   img#semi_2 {height: 180px; margin-left: 4px; width: 18px;}
 
   livelike-footer.right-livelike-footer{display: flex; justify-content:end}
+
+ .col {
+  padding : 4px
+}
