@@ -28,7 +28,7 @@ livelike-widget-root.custom-widget-position-bottom {
 
 livelike-widget-root.custom-widget-position-center {
   position: absolute;
-  top: 45%;
+  top: 41.5%;
 }
 
 livelike-widget-body {
@@ -189,7 +189,7 @@ livelike-footer {
   img#quarter_2 {
     position: absolute;
     top: 45%;
-    
+    left: 87%;
   }
 
   .red {
@@ -209,3 +209,5 @@ livelike-footer {
  .col {
   padding : 2px
 }
+
+livelike-widget-root.custom-widget {max-width: 200px;}
