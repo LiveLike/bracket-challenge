@@ -43,15 +43,7 @@ class LeftCustomImagePrediction extends LiveLikeNumberPrediction {
            totalVotes += option.number
         })
 
-        let bestOfAttribute = this.widgetPayload.widget_attributes.find(function (element) {
-            return element.key === 'bestOf'
-        })
-
-        let bestOfAttributeValue = 3
-        if (bestOfAttribute !== null && bestOfAttribute !== undefined) {
-            bestOfAttributeValue = bestOfAttribute.value
-        }
-
+        let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
         if (maxVote == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
             this.lockInVote(options)
@@ -67,6 +59,18 @@ class LeftCustomImagePrediction extends LiveLikeNumberPrediction {
             this.showPredictionButton()
         }
         
+    }
+
+    getBestOfValueFromWidget() {
+        let bestOfAttribute = this.widgetPayload.widget_attributes.find(function (element) {
+            return element.key === 'bestOf'
+        })
+
+        let bestOfAttributeValue = 3
+        if (bestOfAttribute !== null && bestOfAttribute !== undefined) {
+            bestOfAttributeValue = parseInt(bestOfAttribute.value)
+        }
+        return bestOfAttributeValue
     }
 
     keypressHandler = e => e.which === 46 && (e.returnValue = false);
@@ -96,6 +100,10 @@ class LeftCustomImagePrediction extends LiveLikeNumberPrediction {
         if(this.widgetPayload.positionCenter === true) {
             rootClassName = "custom-widget-position-center"
         }
+
+        let bestOfAttributeValue = this.getBestOfValueFromWidget()
+        let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
+
         return html`
 <template kind="text-prediction">
 <livelike-widget-root style="display:flex; flex-direction:row" class="${rootClassName}">
@@ -114,7 +122,7 @@ ${this.options.map((option, idx) => {
                   class="livelike-voting-number-input user-number-input"
                   type="number" 
                   placeholder="-"
-                  oninput="(!validity.rangeOverflow||(value=2)) && (!validity.rangeUnderflow||(value=0)) &&
+                  oninput="(!validity.rangeOverflow||(value=${maxVotesNeeded})) && (!validity.rangeUnderflow||(value=0)) &&
                   (!validity.stepMismatch||(value=parseInt(this.value)));"
                   .value="${option.number}"
                   min="0" 

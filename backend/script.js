@@ -1,7 +1,7 @@
 const route = "https://cf-blast.livelikecdn.com/api/v1/text-predictions/";
 const numberPredRoute = "https://cf-blast.livelikecdn.com/api/v1/image-number-predictions/";
 
-let program_id = "18548c37-59c1-47b3-929b-8c2d458fa66a";
+let program_id = "df63c849-3309-4c99-9128-ae5b0c66ff8d";
 const accessToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjUwMWZlLWIwODQtNDZjMi04NjM5LWM3ZjJkNjljOGExMSIsImNsaWVudF9pZCI6Im1PQll1bDE4cXVmZnJCRHVxMklBQ0t0VnVMYlV6WElQeWU1UzNicTUiLCJhY2Nlc3NfdG9rZW4iOiJhaHF5SDY0WDRzVXExVm1jUHZlMUxPT1NRcWo2dmRCQU5ZRU5WYThELXBNVDNFcnkyb3E5TGciLCJpc19wcm9kdWNlciI6dHJ1ZSwiaXNzIjoiYmxhc3QiLCJpYXQiOjE2NTIwOTExODV9.IqkXgzjAeHZAyEJ5oKXqXpN61zVsSIjCFknrRtjKYEM";
 const confirmation_message = "Thank you for your answer!";
 const scheduledAt = new Date(Date.now());
@@ -43,11 +43,11 @@ function getPath(isNumberPredictionWidget) {
 }
 
 
-const createWidget = (programId, question, confirmation_message, options, scheduledAt, interactiveUntil, sendAttri, isNumberPredictionWidget) => {
+const createWidget = (programId, question, confirmation_message, options, scheduledAt, interactiveUntil, attributes, isNumberPredictionWidget) => {
 
     let path = getPath(isNumberPredictionWidget)
 
-    var attributes = JSON.parse("[{\"key\": \"isInitialRound\",\"value\": \"true\"}]")
+    
     var data = {
         program_id: programId,
         question: question,
@@ -56,7 +56,7 @@ const createWidget = (programId, question, confirmation_message, options, schedu
         options: options
     }
 
-    if (sendAttri) {
+    if (attributes) {
         data.widget_attributes = attributes
     }
 
@@ -126,8 +126,16 @@ function processWidgetQ(widgetProcessingIndex, isNumberPredictionWidget) {
 
     let widget = widgets[widgetProcessingIndex]
     let option = options[widgetProcessingIndex]
-    let sendAttri = widget.round === 0
-    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, sendAttri,isNumberPredictionWidget)
+    let attributes = undefined
+
+    if(widget.round === 0) {
+        attributes = JSON.parse("[{\"key\": \"isInitialRound\",\"value\": \"true\"}]")
+    }
+    
+    if(widget.round === 1 || widget.round === 2) {
+        attributes = JSON.parse("[{\"key\": \"bestOf\",\"value\": 5}]")
+    } 
+    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, attributes,isNumberPredictionWidget)
         .then(response => {
             console.log("created widget "+widget.question)
             publishWidget(response.data.id, scheduledAt, isNumberPredictionWidget).then(res => {
