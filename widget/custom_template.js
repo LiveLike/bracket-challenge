@@ -24,7 +24,7 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
         this.predictBtnVisibility = "visible"
         this.requestUpdate();
     }
-    
+
     updateFollowUp = (updatedOptions) => {
         let index = 0
         updatedOptions.forEach(updatedOption =>{
@@ -135,7 +135,7 @@ ${this.options.map((option, idx) => {
               
                 <input 
                     style="visibility:${option.correct_number !== null ? "visible" : "hidden"}"
-                    class="livelike-voting-number-input correct-number-input"
+                    class="livelike-voting-number-input correct-number-input ${option.correct_number !== option.number ? "red" : "green"}"
                     type="number" 
                     placeholder="-"
                     value="${option.correct_number}"
