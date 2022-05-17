@@ -361,5 +361,7 @@ function selectUnSelectNewOption(isSlotOne, widgetElm, selectedOption) {
             selectedOptionInNewWidget.optionSelected()
         }
     }
+
+    widgetElm.showPredictionButton()
     return selectedOptionInNewWidget
 }

@@ -1,7 +1,9 @@
 class CustomImagePrediction extends LiveLikeNumberPrediction {
 
     option_show = "display:none";
+    predictBtnVisibility = "hidden"
     index = 0
+
     connectedCallback() {
         super.connectedCallback().then(() => {
             this.options.forEach(option => {
@@ -27,9 +29,13 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     validateAndSubmitVote = (options) => {
+        let maxVote = options[0].number
         let totalVotes = 0
         options.forEach(option => {
-            totalVotes += option.number
+            if(maxVote < option.number) {
+                maxVote = option.number
+            }
+           totalVotes += option.number
         })
 
         let bestOfAttribute = this.widgetPayload.widget_attributes.find(function (element) {
@@ -40,7 +46,9 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
         if (bestOfAttribute !== null && bestOfAttribute !== undefined) {
             bestOfAttributeValue = bestOfAttribute.value
         }
-        if (totalVotes == bestOfAttributeValue) {
+
+        let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
+        if (maxVote == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
             this.lockInVote(options)
         } else {
             alert("Vote Count needs to match " + bestOfAttributeValue)
@@ -48,8 +56,16 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
 
     }
 
+    showPredictionButton() {
+        this.predictBtnVisibility = "visible"
+        this.requestUpdate();
+    }
+
     showOptions(show) {
         show ? this.option_show = "display:flex" : this.option_show = "display:none";
+        if(show) {
+            this.showPredictionButton()
+        }
     }
 
     keypressHandler = e => e.which === 46 && (e.returnValue = false);
@@ -124,6 +140,7 @@ ${this.options.map((option, idx) => {
   <livelike-footer class="right-livelike-footer ">
   <button
                     class="predict-button"
+                    style="visibility:${this.predictBtnVisibility}"
                     @click=${() => this.validateAndSubmitVote(this.options)}
                     ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
                   >Valider</button>
