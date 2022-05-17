@@ -1,8 +1,11 @@
-class CustomImagePrediction extends LiveLikeNumberPrediction {
+class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     option_show = "display:none";
     predictBtnVisibility = "hidden"
     index = 0
+    semiFinalImage= "assets/semi_2.png"
+    semiFinalImageClass= "semi_2"
+    footerClass = "right-livelike-footer"
 
     connectedCallback() {
         super.connectedCallback().then(() => {
@@ -73,6 +76,18 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
         return bestOfAttributeValue
     }
 
+    getInputContainerClass() {
+        return "livelike-voting-input-container"
+    }
+
+    getClassForOption(index, halfIndex) {
+        let className = "livelike-option-end"
+        if (index > halfIndex) {
+            className = "livelike-option-start"
+        }
+        return className
+    }
+
     keypressHandler = e => e.which === 46 && (e.returnValue = false);
 
     inputHandler = (option,e) => {
@@ -88,6 +103,10 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
             className = "livelike-option-start"
         }
         return className
+    }
+
+    getFlexDirectionForRoot() {
+        return "flex-direction:row-reverse"
     }
 
     render() {
@@ -106,8 +125,8 @@ class CustomImagePrediction extends LiveLikeNumberPrediction {
 
         return html`
 <template kind="text-prediction">
-<livelike-widget-root style="display:flex; flex-direction:row-reverse" class="${rootClassName}">
-<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" id="semi_2" src="semi_2.png">
+<livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
+<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
 <livelike-widget-body>
 
 ${this.options.map((option, idx) => {
@@ -117,7 +136,7 @@ ${this.options.map((option, idx) => {
             return html`
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
             <livelike-image height="80px" width="80px"></livelike-image>
-              <div class="livelike-voting-input-container">
+              <div class=${this.getInputContainerClass()}>
                 <input 
                   class="livelike-voting-number-input user-number-input"
                   type="number" 
@@ -145,7 +164,7 @@ ${this.options.map((option, idx) => {
               </livelike-option>
     `;
         })}
-  <livelike-footer class="right-livelike-footer ">
+  <livelike-footer class="${this.footerClass}">
   <button
                     class="predict-button"
                     style="visibility:${this.predictBtnVisibility}"
@@ -158,13 +177,5 @@ ${this.options.map((option, idx) => {
 </livelike-widget-root>
 </template>
 `;
-    }
-}
-customElements.define("custom-image-prediction", CustomImagePrediction);
-
-const customWidgetRenderer = (args) => {
-    let widgetPayload = args.widgetPayload;
-    if (widgetPayload.kind === 'image-number-prediction') {
-        return document.createElement('custom-image-prediction');
     }
 }

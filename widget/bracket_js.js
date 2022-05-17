@@ -16,7 +16,6 @@ const widgetContainer = setupWidgetContainer()
 function setupWidgetContainer() {
     let widgetContainer = document.querySelectorAll('livelike-widgets');
     widgetContainer.forEach(container => {
-        container.customWidgetRenderer = customWidgetRenderer;
         LiveLike.registerWidgetMode(
             'customTimeline',
             ({ widget }) => {
@@ -129,8 +128,7 @@ function renderRoundTwo(results) {
         let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
         let roundTwoRightContainer = document.querySelector('#roundTwoRight')
         roundTwoLeftContainer.customWidgetRenderer = leftPanelCustomWidgetRenderer;
-        //roundTwoLeftContainer.customWidgetRenderer = customWidgetRenderer;
-        roundTwoRightContainer.customWidgetRenderer = customWidgetRenderer;
+        roundTwoRightContainer.customWidgetRenderer = rightCustomWidgetRenderer;
 
         for (index = roundsArr[0]; index < roundsArr[1]; index++) {
             let widgetPayload = results[index]
@@ -151,7 +149,7 @@ function renderRoundThree(results) {
     let index = 0
     //for (let i = 1; i < roundsArr.length; i++) {
         let roundFinalContainer = document.querySelector('#final')
-        roundFinalContainer.customWidgetRenderer = customWidgetRenderer;
+        roundFinalContainer.customWidgetRenderer = rightCustomWidgetRenderer;
         for (index = roundsArr[1]; index < roundsArr[2]; index++) {
             let widgetPayload = results[index]
             widgetIds[index] = widgetPayload.id
@@ -183,12 +181,10 @@ function renderRemainingRounds(results) {
 
 function renderFirstRoundWidgets(results) {
     let nextRoundIndex = 0
-    //widgetContainer[0].customWidgetRenderer = customWidgetRenderer;
     let roundOneContainerLeft = document.querySelector("#roundOneLeft")
     let roundOneContainerRight = document.querySelector("#roundOneRight")
     roundOneContainerLeft.customWidgetRenderer = leftPanelCustomWidgetRenderer;
-    //roundOneContainerLeft.customWidgetRenderer = customWidgetRenderer;
-    roundOneContainerRight.customWidgetRenderer = customWidgetRenderer;
+    roundOneContainerRight.customWidgetRenderer = rightCustomWidgetRenderer;
 
     let halfWayMark = results.length / 4
     let index = 1
