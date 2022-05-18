@@ -116,12 +116,16 @@ const generateWidgets = () => {
     
     
     processWidgetQ(0,true)
-    processWidgetQ(0,false)
+    
 }
 
 function processWidgetQ(widgetProcessingIndex, isNumberPredictionWidget) {
     if(widgetProcessingIndex >= widgets.length) {
-        return
+        if(!isNumberPredictionWidget) {
+            return
+        }
+            
+        processWidgetQ(0,false)
     }
 
     let widget = widgets[widgetProcessingIndex]

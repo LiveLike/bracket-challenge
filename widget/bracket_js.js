@@ -237,7 +237,7 @@ function checkIfAllPredictionsDone() {
     if(widgetInteractionSet.size == totalNoOfWidgets) {
         //All preds done
         //alert("All Predictions done")
-        document.getElementById("alert_w_leaderboard").style.visibility = 'visible'
+        document.getElementById("alert_w_leaderboard").style.display = 'block'
     }
 }
 

@@ -3,10 +3,10 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     option_show = "display:none";
     predictBtnVisibility = "hidden"
     index = 0
-    semiFinalImage= "assets/semi_2.png"
-    semiFinalImageClass= "semi_2"
+    semiFinalImage = "assets/semi_2.png"
+    semiFinalImageClass = "semi_2"
     footerClass = "right-livelike-footer"
-
+   
     connectedCallback() {
         super.connectedCallback().then(() => {
             this.options.forEach(option => {
@@ -30,7 +30,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     updateFollowUp = (updatedOptions) => {
         let index = 0
-        updatedOptions.forEach(updatedOption =>{
+        updatedOptions.forEach(updatedOption => {
             this.options[index++].correct_number = updatedOption.correct_number
         })
         this.requestUpdate();
@@ -40,28 +40,36 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         let maxVote = options[0].number
         let totalVotes = 0
         options.forEach(option => {
-            if(maxVote < option.number) {
+            if (maxVote < option.number) {
                 maxVote = option.number
             }
-           totalVotes += option.number
+            totalVotes += option.number
         })
 
         let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
         if (maxVote == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
             this.lockInVote(options)
+            this.showInputBoxError(false)
         } else {
-            alert("Vote Count needs to match " + bestOfAttributeValue)
+            //alert("Vote Count needs to match " + bestOfAttributeValue)
+            this.showInputBoxError(true)
+            
         }
 
     }
 
+    showInputBoxError(show) {
+        let errorElement = document.getElementById('validation_error')
+        errorElement.style.display = show? "block" : "none"
+    }
+    
     showOptions(show) {
         show ? this.option_show = "display:flex" : this.option_show = "display:none";
-        if(show) {
+        if (show) {
             this.showPredictionButton()
         }
-        
+
     }
 
     getBestOfValueFromWidget() {
@@ -90,13 +98,13 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     keypressHandler = e => e.which === 46 && (e.returnValue = false);
 
-    inputHandler = (option,e) => {
+    inputHandler = (option, e) => {
         const idx = e.target.value.indexOf('.');
-        idx !== -1 && (e.target.value = e.target.value.replace(/[.][0-9]+$/,""));
+        idx !== -1 && (e.target.value = e.target.value.replace(/[.][0-9]+$/, ""));
         const number = e.target.value ? +e.target.value : null
-        this.updateOption(option,number);
-      }
-      
+        this.updateOption(option, number);
+    }
+
     getClassForOption(index, halfIndex) {
         let className = "livelike-option-end"
         if (index > halfIndex) {
@@ -119,23 +127,23 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         if(this.widgetPayload.positionCenter === true) {
             rootClassName = "custom-widget-position-center"
         }
-        
+
         let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
 
         return html`
 <template kind="text-prediction">
 <livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
-<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
+<img style="display:${this.widgetPayload.isSemiFinal == true ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
 <livelike-widget-body>
 
 ${this.options.map((option, idx) => {
             index++
             let className = this.getClassForOption(index, halfIndex)
             const correct = option.number === option.correct_number;
-            return html`
+            return html`      
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
-            <livelike-image height="80px" width="80px"></livelike-image>
+            <livelike-image height="55px" width="55px"></livelike-image>
               <div class=${this.getInputContainerClass()}>
                 <input 
                   class="livelike-voting-number-input user-number-input"
@@ -174,7 +182,7 @@ ${this.options.map((option, idx) => {
                   
                   </livelike-widget-footer>
                   </livelike-widget-body>
-</livelike-widget-root>
+ </livelike-widget-root>
 </template>
 `;
     }
