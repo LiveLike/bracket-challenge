@@ -167,6 +167,11 @@ const setupLeaderboard = (leaderboardId => {
   document.getElementById('leaderboard_close').onclick = function(){
     showChallengeTab()
   }
+
+  document.getElementById('alert_close').onclick = function(){
+    document.getElementById("validation_error").classList.remove('show')
+  }
+  
   
   const updateLeaderboardData = () => {
     document.getElementById('bracket_tab').style.display = 'none'

@@ -52,7 +52,6 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
             this.lockInVote(options)
             this.showInputBoxError(false)
         } else {
-            //alert("Vote Count needs to match " + bestOfAttributeValue)
             this.showInputBoxError(true)
             
         }
@@ -61,7 +60,18 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     showInputBoxError(show) {
         let errorElement = document.getElementById('validation_error')
-        errorElement.style.display = show? "block" : "none"
+        
+        if(show) {
+            errorElement.classList.add('show')
+        } else {
+            errorElement.classList.remove('show')
+        }
+
+        if(show) {
+            document.getElementById('error_content').innerHTML = "Vote Count needs to match " + this.getBestOfValueFromWidget()
+            
+        }
+        
     }
     
     showOptions(show) {
