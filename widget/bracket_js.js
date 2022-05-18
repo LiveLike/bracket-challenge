@@ -72,8 +72,6 @@ function listenToFollowUpWidget(){
 
 function registerCustomTimeline() {
 
-    listenToFollowUpWidget() 
-
     // Gets initial list of widgets
     LiveLike.getWidgets({
         programId: programId,
@@ -116,6 +114,7 @@ function registerCustomTimeline() {
 
             renderRoundTwo(numberPredsResults)
             renderRoundThree(numberPredsResults)
+            listenToFollowUpWidget() 
         });
     })
 }
@@ -223,7 +222,10 @@ function initWidget(container, widgetPayload) {
 }
 
 document.addEventListener("widgetattached", function (e) {
-    e.detail.element.showOptions(isInitialRound(e.detail.widget))
+    if(e.detail.element.showOptions) {
+        e.detail.element.showOptions(isInitialRound(e.detail.widget))    
+    }
+    
     e.detail.element.addEventListener('number-prediction', (e) => {
         processNextWidgetOnPrediction(e.detail.widget.id, e.detail.widget.options)
         checkIfAllPredictionsDone()

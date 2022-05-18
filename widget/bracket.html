@@ -20,12 +20,12 @@
         <div id="profile_tab" style="display: none;">
             <div class="profile-container">
                 <form autocomplete="off">
-                    <p>Bracket Challenge. <br />Create your profile to play.</p>
-                    <label class="form-label" for="form-user-fullName"><b>Full Name</b><b class="red-text">*</b></label>
+                    <p>Bracket Challenge. <br />Veuillez créer un profil pour jouer.</p>
+                    <label class="form-label" for="form-user-fullName"><b>Nom complet</b><b class="red-text">*</b></label>
                     <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="text"
                         id="form-user-fullName" class="profile-input form-control" />
                     <br />
-                    <label class="form-label" for="form-user-nickName"><b>Username</b><b class="red-text">*</b></label>
+                    <label class="form-label" for="form-user-nickName"><b>Pseudo</b><b class="red-text">*</b></label>
                     <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="text"
                         id="form-user-nickName" class="profile-input form-control" />
                     <br />
@@ -34,9 +34,8 @@
                         id="form-user-email" class="profile-input form-control" />
                 </form>
                 <br />
-                <button class="btn btn-default" id="createProfileButton" onclick="handleCreateUserProfile()">Create My
-                    Profile</button>
-                <p class="small-text">*mandatory fields</p>
+                <button class="btn btn-default" id="createProfileButton" onclick="handleCreateUserProfile()">Créer mon profil.</button>
+                <p class="small-text">*Champs obligatoire</p>
             </div>
         </div>
 
@@ -144,7 +143,7 @@
         <script>
             const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
 
-            const programId = "7df53819-5f7a-4c87-ad84-3c034b8d4b7d";
+            const programId = "69eacfb3-9656-455e-9379-11dfcaaac617";
             const leaderboardId = '25468dd5-ba32-4530-b6df-ce89c7babc60';
 
             // const programId = "078dac72-554e-4f52-8db4-fd592e59439d"
