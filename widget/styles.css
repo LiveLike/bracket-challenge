@@ -3,7 +3,9 @@ body {
 }
 
 
-.livelike-voting-number-input {font-size: 40px !important; font-weight: bold}
+.livelike-voting-number-input {font-size: 28px !important; font-weight: bold}
+
+input.livelike-voting-number-input {width: 40%;padding: 0px;/* min-width: 35px; */}
 
 livelike-footer {
     background-color: transparent !important;
@@ -23,12 +25,12 @@ button.predict-button {
 
 livelike-widget-root.custom-widget-position-bottom {
     position: absolute;
-    top: 70%;
+    top: 65%;
 }
 
 livelike-widget-root.custom-widget-position-center {
   position: absolute;
-  top: 40%;
+  top: 35%;
 }
 
 livelike-widget-body {
@@ -182,13 +184,13 @@ livelike-footer {
   
   img#quarter_1 {
     position: absolute;
-    top: 40%;
+    top: 38%;
     
   }
 
   img#quarter_2 {
     position: absolute;
-    top: 40%;
+    top: 38%;
   }
 
   .red {
