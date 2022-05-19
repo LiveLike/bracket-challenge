@@ -68,7 +68,11 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         }
 
         if(show) {
-            document.getElementById('error_content').innerHTML = "Vote Count needs to match " + this.getBestOfValueFromWidget()
+            if(this.getBestOfValueFromWidget === 5) {
+                document.getElementById('error_content').innerHTML = "Au meilleur des cinq matchs"
+            } else {
+                document.getElementById('error_content').innerHTML = "Au meilleur des trois matchs"
+            }
             
         }
         
