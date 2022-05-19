@@ -5,7 +5,7 @@ body {
 
 .livelike-voting-number-input {font-size: 28px !important; font-weight: bold}
 
-input.livelike-voting-number-input {width: 40%;padding: 0px;/* min-width: 35px; */}
+input.livelike-voting-number-input {width: 38%;padding: 0px;/* min-width: 35px; */}
 
 livelike-footer {
     background-color: transparent !important;
@@ -25,12 +25,12 @@ button.predict-button {
 
 livelike-widget-root.custom-widget-position-bottom {
     position: absolute;
-    top: 68%;
+    top: 70%;
 }
 
 livelike-widget-root.custom-widget-position-center {
   position: absolute;
-  top: 38%;
+  top: 42%;
 }
 
 livelike-widget-body {

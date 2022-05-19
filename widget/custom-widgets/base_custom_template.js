@@ -124,7 +124,10 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     getFlexDirectionForRoot() {
-        return "flex-direction:row-reverse"
+        if(this.widgetPayload.isSemiFinal == true) {
+            return "flex-direction:row-reverse"    
+        }
+        return "flex-direction:row"
     }
 
     render() {
