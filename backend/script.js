@@ -130,15 +130,12 @@ function processWidgetQ(widgetProcessingIndex, isNumberPredictionWidget) {
 
     let widget = widgets[widgetProcessingIndex]
     let option = options[widgetProcessingIndex]
-    let attributes = undefined
-
-    if(widget.round === 0) {
-        attributes = JSON.parse("[{\"key\": \"isInitialRound\",\"value\": \"true\"}]")
-    }
     
-    if(widget.round === 1 || widget.round === 2) {
-        attributes = JSON.parse("[{\"key\": \"bestOf\",\"value\": 5}]")
-    } 
+    let attributes = []
+    let attributeIndex = 0
+    attributes[attributeIndex++] = {"key": "isInitialRound","value": widget.round === 0 ? "true" : "false"}
+    attributes[attributeIndex++] = {"key": "bestOf","value": (widget.round === 1 || widget.round === 2) ? "5" : "3"} 
+    
     createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, attributes,isNumberPredictionWidget)
         .then(response => {
             console.log("created widget "+widget.question)
@@ -177,13 +174,17 @@ function getOptions(index, roundIndex, noOfWidgetsInArray) {
         option.push(
             { 
                 description: teamsUnorderedListElement.children[index + 1].firstChild.value,
-                 image_url: teamsUnorderedListElement.children[index +1].children[1].value,
-                 alt_url: teamsUnorderedListElement.children[index + 1].children[2].value});
+                 image_url: teamsUnorderedListElement.children[index +1].children[1].value});
     } else {
         let tempNoOfTeams = teamsUnorderedListElement.children.length;
         let noOfOptionsPerWidget = tempNoOfTeams / noOfWidgetsInArray
         for(let childIndex = noOfOptionsPerWidget * index; childIndex < (noOfOptionsPerWidget * index)+noOfOptionsPerWidget; childIndex++) {
-            option.push({ description: teamsUnorderedListElement.children[childIndex].firstChild.value, image_url: teamsUnorderedListElement.children[childIndex].children[1].value })
+            option.push(
+                            { 
+                            description: teamsUnorderedListElement.children[childIndex].firstChild.value,
+                            image_url: teamsUnorderedListElement.children[childIndex].children[1].value
+                            }
+                        )
         }
     }
     return option

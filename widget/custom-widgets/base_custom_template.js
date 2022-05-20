@@ -20,6 +20,14 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
             const idx = this.options.findIndex(c => c.id === vote.option_id);
             this.options[idx].number = vote.number;
         })
+
+        let maxVoteOption = this.options[0]
+        this.options.forEach(option => {
+            if (maxVoteOption.number < option.number) {
+                maxVoteOption = option
+            }
+        })
+        this.greyOutLosingTeam(maxVoteOption)
         this.requestUpdate();
     }
 
@@ -37,25 +45,34 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     validateAndSubmitVote = (options) => {
-        let maxVote = options[0].number
+        let maxVoteOption = options[0]
         let totalVotes = 0
         options.forEach(option => {
-            if (maxVote < option.number) {
-                maxVote = option.number
+            if (maxVoteOption.number < option.number) {
+                maxVoteOption = option
             }
             totalVotes += option.number
         })
 
         let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
-        if (maxVote == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
+        if (maxVoteOption.number == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
             this.lockInVote(options)
+            this.greyOutLosingTeam(maxVoteOption)
             this.showInputBoxError(false)
         } else {
             this.showInputBoxError(true)
             
         }
 
+    }
+
+    greyOutLosingTeam(maxVoteOption) {
+        this.querySelectorAll('livelike-image').forEach(livelikeImageNode =>{
+            if(livelikeImageNode.childNodes[0].alt !== maxVoteOption.description) {
+                livelikeImageNode.childNodes[0].classList.add('.greyed')
+            }
+        })
     }
 
     showInputBoxError(show) {

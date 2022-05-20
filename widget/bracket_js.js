@@ -304,7 +304,10 @@ function selectOptionOnTextPrediction(widgetIndexInArr, selectedOption) {
 }
 
 function isInitialRound(widgetPayload) {
-    return widgetPayload.widget_attributes[0] != undefined && widgetPayload.widget_attributes[0].value === 'true'
+    let isInitialWidget = widgetPayload.widget_attributes.find(function (element) {
+        return element.key === 'isInitialRound'
+    })
+    return isInitialWidget != undefined && isInitialWidget.value === 'true'
 }
 
 function setWidgetTitle(widgetElm) {
