@@ -1,7 +1,7 @@
 const route = "https://cf-blast.livelikecdn.com/api/v1/text-predictions/";
 const numberPredRoute = "https://cf-blast.livelikecdn.com/api/v1/image-number-predictions/";
 
-let program_id = "df63c849-3309-4c99-9128-ae5b0c66ff8d";
+let program_id = "9b29acf8-a467-4afb-9b3a-350b09619383";
 const accessToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjUwMWZlLWIwODQtNDZjMi04NjM5LWM3ZjJkNjljOGExMSIsImNsaWVudF9pZCI6Im1PQll1bDE4cXVmZnJCRHVxMklBQ0t0VnVMYlV6WElQeWU1UzNicTUiLCJhY2Nlc3NfdG9rZW4iOiJhaHF5SDY0WDRzVXExVm1jUHZlMUxPT1NRcWo2dmRCQU5ZRU5WYThELXBNVDNFcnkyb3E5TGciLCJpc19wcm9kdWNlciI6dHJ1ZSwiaXNzIjoiYmxhc3QiLCJpYXQiOjE2NTIwOTExODV9.IqkXgzjAeHZAyEJ5oKXqXpN61zVsSIjCFknrRtjKYEM";
 const confirmation_message = "Thank you for your answer!";
 const scheduledAt = new Date(Date.now());
@@ -168,13 +168,13 @@ function getOptions(index, roundIndex, noOfWidgetsInArray) {
         option.push(
             {   
                 description: teamsUnorderedListElement.children[index].firstChild.value, 
-                image_url: teamsUnorderedListElement.children[index].children[1].value,
-                alt_url: teamsUnorderedListElement.children[index].children[2].value}
+                image_url: teamsUnorderedListElement.children[index].children[1].value}
             );
         option.push(
             { 
                 description: teamsUnorderedListElement.children[index + 1].firstChild.value,
-                 image_url: teamsUnorderedListElement.children[index +1].children[1].value});
+                 image_url: teamsUnorderedListElement.children[index +1].children[1].value
+            });
     } else {
         let tempNoOfTeams = teamsUnorderedListElement.children.length;
         let noOfOptionsPerWidget = tempNoOfTeams / noOfWidgetsInArray

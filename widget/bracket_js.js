@@ -65,7 +65,11 @@ function listenToFollowUpWidget(){
         {programId: programId}, 
         (e) => {
             let imagePredWidgetId = e.widgetPayload.image_number_prediction_id
-            queryWidgetUsingId(imagePredWidgetId).updateFollowUp(e.widgetPayload.options)
+            let numberPredWidget = queryWidgetUsingId(imagePredWidgetId)
+            if(numberPredWidget !== null && numberPredWidget !== undefined) {
+                numberPredWidget.updateFollowUp(e.widgetPayload.options)
+            }
+            
         }
       );
 }
