@@ -1,6 +1,6 @@
 body {
     background-image: url(assets/lnb_bg.png)
-}
+;background-size: cover;background-repeat: no-repeat;}
 
 
 .livelike-voting-number-input {font-size: 28px !important; font-weight: bold}
@@ -11,7 +11,7 @@ livelike-footer {
     background-color: transparent !important;
 }
 
-input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;}
+input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;background: transparent;}
 
 .user-number-input{
     color:white !important
@@ -23,15 +23,15 @@ button.predict-button {
 
 
 
-livelike-widget-root.custom-widget-position-bottom {
+/*livelike-widget-root.custom-widget-position-bottom {
     position: absolute;
     top: 75%;
-}
+}*/
 
-livelike-widget-root.custom-widget-position-center {
+/*livelike-widget-root.custom-widget-position-center {
   position: absolute;
   top: 42%;
-}
+}*/
 
 livelike-widget-body {
     background: transparent;
@@ -184,14 +184,14 @@ livelike-footer {
   
   img#quarter_1 {
     position: absolute;
-    top: 38%;
+    top: calc(50% - 90px);
     
-  }
+  margin-left: -10px;}
 
   img#quarter_2 {
     position: absolute;
-    top: 38%;
-  }
+    top: calc(50% - 90px);
+  margin-left: -10px;}
 
   .red {
     color:red !important;
@@ -201,9 +201,11 @@ livelike-footer {
     color:green !important;
   }
 
-  .semi_1 {height: 140px;margin-right: 4px; width: 18px;}
+  .semi_1 {height: 25vh;margin-right: 1rem; }
 
-  .semi_2 {height: 140px; margin-left: 4px; width: 18px;}
+  .semi_2 {height: 25vh; margin-left: 1rem;}
+
+  livelike-widget-root {align-items: center;}
 
   livelike-footer.right-livelike-footer{display: flex; justify-content:end}
 
@@ -212,3 +214,125 @@ livelike-footer {
 }
 
 livelike-widget-root.custom-widget {max-width: 200px;}
+
+
+
+/* added by Shu */
+#leftbox_1:before {
+  content:'';
+  position: absolute;
+  width: 40px;
+  height: 25vh;
+  border: 2px solid #fff;
+  border-right: none;
+  border-bottom: none;
+  top: 5vh;
+  left: -100px;
+  z-index: 0;
+}
+#leftbox_1:after {
+  content:'';
+  position: absolute;
+  width: 40px;
+  height: 25vh;
+  border: 2px solid #fff;
+  border-right: none;
+  border-top: none;
+  bottom: 5vh;
+  left: -100px;
+  z-index: 0;
+}
+#leftbox:before {
+  content:'';
+  position: absolute;
+  width: 40px;
+  height: 25vh;
+  border: 2px solid #fff;
+  border-left: none;
+  border-bottom: none;
+  top: 5vh;
+  right: -100px;
+  z-index: 0;
+}
+#leftbox:after {
+  content:'';
+  position: absolute;
+  width: 40px;
+  height: 25vh;
+  border: 2px solid #fff;
+  border-left: none;
+  border-top: none;
+  bottom: 5vh;
+  right: -100px;
+  z-index: 0;
+}
+
+#middlebox:after {
+  content:'';
+  position: absolute;
+  width: 60px;
+  height: 2px;
+  top: calc(50% - 21.5px);
+  right: -20px;
+  background: #ffffff;
+  z-index: -1;
+}
+#rightbox_1:after {
+  content:'';
+  position: absolute;
+  width: 60px;
+  height: 2px;
+  top: calc(50% - 21.5px);
+  left: -40px;
+  background: #ffffff;
+  z-index: -1;
+}
+
+livelike-widgets#roundOneLeft, livelike-widgets#roundOneRight {
+    height: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#rightbox {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+livelike-widget-root {margin-right: 1rem;}
+
+#final livelike-option.livelike-option-end {
+  flex-direction: column-reverse;
+  align-items: center;
+}
+#final livelike-option.livelike-option-start {
+  flex-direction: column;
+  align-items: center;
+}
+#final livelike-option livelike-image img {
+  width: 120px;
+  height: 120px;
+}
+
+#final livelike-option.livelike-option-end .livelike-voting-input-container {
+  flex-direction:column-reverse;
+  align-items: center;
+}
+#final livelike-option.livelike-option-start .livelike-voting-input-container {
+  flex-direction:column;
+  align-items: center;
+}
+
+#final livelike-footer {
+  justify-content: center;
+}

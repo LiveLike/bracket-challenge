@@ -168,8 +168,17 @@ function getOptions(index, roundIndex, noOfWidgetsInArray) {
     //First Round widgets
     if (roundIndex === 0) {
         index = index * 2
-        option.push({ description: teamsUnorderedListElement.children[index].firstChild.value, image_url: teamsUnorderedListElement.children[index].children[1].value });
-        option.push({ description: teamsUnorderedListElement.children[index + 1].firstChild.value, image_url: teamsUnorderedListElement.children[index +1].children[1].value });
+        option.push(
+            {   
+                description: teamsUnorderedListElement.children[index].firstChild.value, 
+                image_url: teamsUnorderedListElement.children[index].children[1].value,
+                alt_url: teamsUnorderedListElement.children[index].children[2].value}
+            );
+        option.push(
+            { 
+                description: teamsUnorderedListElement.children[index + 1].firstChild.value,
+                 image_url: teamsUnorderedListElement.children[index +1].children[1].value,
+                 alt_url: teamsUnorderedListElement.children[index + 1].children[2].value});
     } else {
         let tempNoOfTeams = teamsUnorderedListElement.children.length;
         let noOfOptionsPerWidget = tempNoOfTeams / noOfWidgetsInArray

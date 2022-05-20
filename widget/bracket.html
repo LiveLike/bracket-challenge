@@ -40,7 +40,7 @@
         </div>
 
         <div class="container">
-            <div id="bracket_tab" style="width:85%; height:85%; margin:0 auto">
+            <div id="bracket_tab" style="margin:0 auto">
 
                 <div id="validation_error" class="alert alert-warning alert-dismissible fade hide" role="alert">
                      <span id="error_content"></span>
@@ -48,11 +48,11 @@
                 </div>
 
     
-                <div class="row">
+                <div class="row" style="height: calc(88vh);">
                     <div class="col-auto">
-                        <img id="quarter_1" src="assets/quarter_1.png" width="18px" height="180px">
+                        <img id="quarter_1" src="assets/quarter_1.png" height="180px">
                     </div>
-                    <div id="leftbox" class="col my-auto">
+                    <div id="leftbox" class="col" style="position: relative;">
                         <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
                         </livelike-widgets>
                          <!-- <div style="position: fixed; 
@@ -66,7 +66,7 @@
                                 border-right:2px solid white"></div> -->
                         </div>
 
-                    <div id="middlebox"  class="col my-auto">
+                    <div id="middlebox"  class="col my-auto" style="position: relative;">
                         <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
                         </livelike-widgets>
 
@@ -74,17 +74,19 @@
                         top: 36.7%; left: 30.2%;border-bottom:2px solid white; 
                         width: 8%;height: 15%;"></div> -->
                     </div>
-                    <div id="rightbox" class="col my-auto">
-                        <img src="assets/playoffs_lnb.png" style="margin-bottom:10px; width:180px" />
+                    <div id="rightbox" class="col" style="position: relative;">
+                        <img src="assets/playoffs_lnb.png" style="width:180px" />
                         <livelike-widgets id="final" mode="customTimeline">
                         </livelike-widgets>
-                        <img src="assets/lnb.svg" style="position: fixed; top: 70%;left: 45%;height: 65px;width: 150px;" />
-                        <img src="assets/lnbhashtag.png" style="position: fixed; top:85%;left: 41%;" width="280px" height="18px" /> 
+                        <div class="footer-logos">
+                            <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
+                            <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
+                        </div>
 
                     </div>
                     
 
-                    <div id="rightbox_1"  class="col my-auto">
+                    <div id="rightbox_1"  class="col my-auto" style="position: relative;">
                         <livelike-widgets id="roundTwoRight" mode="customTimeline">
                         </livelike-widgets>
 
@@ -104,12 +106,12 @@
 
                     </div>
 
-                    <div id="leftbox_1"  class="col my-auto">
+                    <div id="leftbox_1"  class="col" style="position: relative;">
                         <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
                         </livelike-widgets>
                     </div>
                     <div class="col-auto">
-                        <img id="quarter_2" src="assets/quarter_2.png" width="18px" height="180px">
+                        <img id="quarter_2" src="assets/quarter_2.png" height="180px">
                     </div>
 
                 </div>
