@@ -85,7 +85,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         }
 
         if(show) {
-            if(this.getBestOfValueFromWidget === 5) {
+            if(this.getBestOfValueFromWidget() === 5) {
                 document.getElementById('error_content').innerHTML = "Au meilleur des cinq matchs"
             } else {
                 document.getElementById('error_content').innerHTML = "Au meilleur des trois matchs"
