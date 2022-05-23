@@ -367,6 +367,7 @@ function selectUnSelectNewOption(isSlotOne, widgetElm, selectedOption) {
         }
     }
 
-    widgetElm.showPredictionButton()
+    if(widgetElm.widgetPayload.slot1 && widgetElm.widgetPayload.slot2 )
+        widgetElm.showPredictionButton()
     return selectedOptionInNewWidget
 }
