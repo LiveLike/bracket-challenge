@@ -145,7 +145,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     getFlexDirectionForRoot() {
-        if(this.widgetPayload.isSemiFinal == true) {
+        if(this.widgetPayload.isSemiFinal == true && window.screen.width > 767) {
             return "flex-direction:row-reverse"    
         }
         return "flex-direction:row"
@@ -168,7 +168,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         return html`
 <template kind="text-prediction">
 <livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
-<img style="display:${this.widgetPayload.isSemiFinal == true ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
+<img style="display:${(this.widgetPayload.isSemiFinal == true &&  window.screen.width > 767) ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
 <livelike-widget-body>
 
 ${this.options.map((option, idx) => {

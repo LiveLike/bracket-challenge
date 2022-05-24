@@ -37,7 +37,7 @@
                 <button class="btn btn-default" id="createProfileButton" onclick="handleCreateUserProfile()">Créer mon profil.</button>
                 <p class="small-text">*Champs obligatoire</p>
                 <p class="small-text">Veuillez créer un profil pour participer et tenter de gagner le maillot de l’équipe votre choix ainsi que le ballon officiel des Playoffs. <a href="https://www.lnb.fr/elite/wp-content/uploads/2022/05/23052022_Reglement_BracketChallenge-2.pdf" class="alert-link">Conditions et règlements</a></p>
-                
+
             </div>
         </div>
 
@@ -49,52 +49,153 @@
                     <button id="alert_close" type="button" class="btn-close" aria-label="Close"></button>
                 </div>
 
-    
-                <div class="row" style="height: calc(88vh);">
-                    <div class="col-auto">
-                        <img id="quarter_1" src="assets/quarter_1.png" height="180px">
-                    </div>
-                    <div id="leftbox" class="col" style="position: relative;">
-                        <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
-                        </livelike-widgets>
-                       
-                        </div>
 
-                    <div id="middlebox"  class="col my-auto" style="position: relative;">
-                        <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
-                        </livelike-widgets>
+                <div class="on-desktop">
+                  <div class="row" style="height: calc(88vh);">
+                      <div class="col-auto">
+                          <img id="quarter_1" src="assets/quarter_1.png" height="180px">
+                      </div>
+                      <div id="leftbox" class="col" style="position: relative;">
+                          <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
+                          </livelike-widgets>
 
-                       
-                    </div>
-                    <div id="rightbox" class="col" style="position: relative;">
-                        <img src="assets/playoffs_lnb.png" style="width:180px" />
-                        <livelike-widgets id="final" mode="customTimeline">
-                        </livelike-widgets>
-                        <div class="footer-logos">
-                            <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
-                            <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
-                        </div>
+                          </div>
 
-                    </div>
-                    
+                      <div id="middlebox"  class="col my-auto" style="position: relative;">
+                          <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
+                          </livelike-widgets>
 
-                    <div id="rightbox_1"  class="col my-auto" style="position: relative;">
-                        <livelike-widgets id="roundTwoRight" mode="customTimeline">
-                        </livelike-widgets>
 
-                       
-                    </div>
+                      </div>
+                      <div id="rightbox" class="col" style="position: relative;">
+                          <img src="assets/playoffs_lnb.png" style="width:180px" />
+                          <livelike-widgets id="final" mode="customTimeline">
+                          </livelike-widgets>
+                          <div class="footer-logos">
+                              <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
+                              <img src="assets/lnbhashtag.png" width="280px" height="18px" />
+                          </div>
 
-                    <div id="leftbox_1"  class="col" style="position: relative;">
-                        <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
-                        </livelike-widgets>
-                    </div>
-                    <div class="col-auto">
-                        <img id="quarter_2" src="assets/quarter_2.png" height="180px">
-                    </div>
+                      </div>
 
+
+                      <div id="rightbox_1"  class="col my-auto" style="position: relative;">
+                          <livelike-widgets id="roundTwoRight" mode="customTimeline">
+                          </livelike-widgets>
+
+
+                      </div>
+
+                      <div id="leftbox_1"  class="col" style="position: relative;">
+                          <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
+                          </livelike-widgets>
+                      </div>
+                      <div class="col-auto">
+                          <img id="quarter_2" src="assets/quarter_2.png" height="180px">
+                      </div>
+
+                  </div>
+              </div>
+              
+              <!-- Rey's Code -->
+        <div class="container on-mobile">
+          <div class="quarter-final-wrapper">
+
+            <img class="img-center" src="assets/quarter-horizontal.png" alt="1/4 De finale">
+            <div class="row">
+
+              <div class="col-5">
+                <div class="row widget-group">
+                  <div class="col-12 widget">
+                    <livelike-widgets id="roundOneLeft_m" class="float-child" mode="customTimeline">
+                    </livelike-widgets>
+                  </div>
+                  <!-- <div class="col-6 widget">
+                    2 logos & BTN
+                  </div> -->
                 </div>
-                <div style="display: none;">
+              </div>
+
+              <div class="col-1  connection-from-left">
+              </div>
+
+              <div class="col-1 connection-from-right">
+              </div>
+
+              <div class="col-5">
+                <div class="row widget-group">
+                  <div class="col-12 widget">
+                    <livelike-widgets id="roundOneRight_m" class="float-child" mode="customTimeline">
+                    </livelike-widgets>
+                  </div>
+                  <!-- <div class="col-6 widget">
+                    2 logos & BTN
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="semi-final-wrapper" style="margin-top:40px">
+            <img class="img-center" src="assets/semi-horizontal.png" alt="1/2 finale">
+            <div class="row">
+
+              <div class="col-5 connections-from-left">
+                <div class="row widget-group">
+                  <div class="col-12 widget">
+                    <livelike-widgets id="roundTwoLeft_m" class="float-child" mode="customTimeline">
+                    </livelike-widgets>
+                  </div>
+                  <!-- <div class="col-6 widget">
+                    2 logos & BTN
+                  </div> -->
+                </div>
+              </div>
+
+            <div id="semi_1" class="col-1  connection-from-left">
+            </div>
+
+            <div id="semi_2" class="col-1 connection-from-right">
+            </div>
+
+
+              <div class="col-5">
+                <div class="row widget-group">
+                  <div class="col-12 widget">
+                    <livelike-widgets id="roundTwoRight_m" class="float-child" mode="customTimeline">
+                    </livelike-widgets>
+                  </div>
+                  <!-- <div class="col-6 widget">
+                    2 logos & BTN
+                  </div> -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="final-wrapper" style="margin-top:40px">
+            <div class="row justify-content-center">
+              <div class="col-8">
+                <livelike-widgets id="final_m" mode="customTimeline">
+                </livelike-widgets>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center" style="margin-top:60px">
+            <div class="col-4">
+              <img src="assets/lnb.svg" style="height: 60px; width: 120px;" alt="LNB Logo">
+            </div>
+          </div>
+        </div>
+
+              <div style="display: none;">
                     <livelike-widgets id="placeHolder" mode="customTimeline">
                     </livelike-widgets>
 
@@ -103,7 +204,7 @@
             </div>
         </div>
 
-        <div id="leaderboard_tab" style="display: none; width:60%; height:60%; margin:0 auto"">
+        <div id="leaderboard_tab" style="display: none; width:60%; height:60%; margin:0 auto">
             <div class="leaderboard-container">
                 <button type="button" class="btn-close btn-close-white"  style="float:right"
                     id="leaderboard_close"></button>
@@ -117,7 +218,11 @@
                     <tbody class="leaderboard-entries-container"> </tbody>
                 </table>
             </div>
-        </div>
+        </div></div>
+
+        
+
+
 
         <script src="https://unpkg.com/@livelike/engagementsdk/livelike.umd.js"></script>
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> <!-- For Internet Explorer compatibility -->
@@ -143,6 +248,8 @@
 
             init(clientId, programId, leaderboardId);
         </script>
+
+
 </body>
 
 </html>

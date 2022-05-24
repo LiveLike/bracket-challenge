@@ -128,8 +128,18 @@ function renderRoundTwo(results) {
     //for (let i = 1; i < roundsArr.length; i++) {
         let roundTwoLength = roundsArr[1] - roundsArr[0]
         let roundTwoHalfWay = roundTwoLength / 2
-        let roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
-        let roundTwoRightContainer = document.querySelector('#roundTwoRight')
+
+        let roundTwoLeftContainer
+        let roundTwoRightContainer
+        if(window.screen.width > 767) {
+            roundTwoLeftContainer = document.querySelector('#roundTwoLeft')
+            roundTwoRightContainer = document.querySelector('#roundTwoRight')
+        } else {
+            roundTwoLeftContainer = document.querySelector('#roundTwoLeft_m')
+            roundTwoRightContainer = document.querySelector('#roundTwoRight_m')
+        }
+       
+
         roundTwoLeftContainer.customWidgetRenderer = leftPanelCustomWidgetRenderer;
         roundTwoRightContainer.customWidgetRenderer = rightCustomWidgetRenderer;
 
@@ -151,7 +161,12 @@ function renderRoundTwo(results) {
 function renderRoundThree(results) {
     let index = 0
     //for (let i = 1; i < roundsArr.length; i++) {
-        let roundFinalContainer = document.querySelector('#final')
+        let roundFinalContainer
+        if(window.screen.width > 767) {
+            roundFinalContainer = document.querySelector('#final')
+        } else {
+            roundFinalContainer = document.querySelector('#final_m')
+        }
         roundFinalContainer.customWidgetRenderer = rightCustomWidgetRenderer;
         for (index = roundsArr[1]; index < roundsArr[2]; index++) {
             let widgetPayload = results[index]
@@ -184,8 +199,16 @@ function renderRemainingRounds(results) {
 
 function renderFirstRoundWidgets(results) {
     let nextRoundIndex = 0
-    let roundOneContainerLeft = document.querySelector("#roundOneLeft")
-    let roundOneContainerRight = document.querySelector("#roundOneRight")
+    let roundOneContainerLeft
+    let roundOneContainerRight
+    if(window.screen.width > 767) {
+        roundOneContainerLeft = document.querySelector('#roundOneLeft')
+        roundOneContainerRight = document.querySelector('#roundOneRight')
+    } else {
+        roundOneContainerLeft = document.querySelector('#roundOneLeft_m')
+        roundOneContainerRight = document.querySelector('#roundOneRight_m')
+    }
+
     roundOneContainerLeft.customWidgetRenderer = leftPanelCustomWidgetRenderer;
     roundOneContainerRight.customWidgetRenderer = rightCustomWidgetRenderer;
 
