@@ -187,7 +187,7 @@ ${this.options.map((option, idx) => {
                   (!validity.stepMismatch||(value=parseInt(this.value)));"
                   .value="${option.number}"
                   min="0" 
-                  max="2"
+                  max="${maxVotesNeeded}"
                   maxlength="1"
                   @keypress=${this.keypressHandler}
                   @input=${(e) => this.inputHandler(option, e)}
