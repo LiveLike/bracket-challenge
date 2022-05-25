@@ -1,17 +1,20 @@
 body {
-    background-image: url(assets/lnb_bg.png)
-;background-size: cover;background-repeat: no-repeat;}
+    background-image: url(assets/lnb_bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #06172b;
+}
 
 
 .livelike-voting-number-input {font-size: 28px !important; font-weight: bold}
 
-input.livelike-voting-number-input {width: 38%;padding: 0px;/* min-width: 35px; */}
+input.livelike-voting-number-input {width: 38%;padding: 0px;min-width: 35px;}
 
 livelike-footer {
     background-color: transparent !important;
 }
 
-input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;background: transparent;}
+input.livelike-voting-number-input.user-number-input {border-color: white;border-radius: 0px;border: 2px solid white;background: transparent;width: 100%;}
 
 .user-number-input{
     color:white !important
@@ -30,7 +33,7 @@ livelike-widget-body {
     flex-direction: row-reverse;
 } 
 
-.left-livelike-voting-input-container {justify-content: start !important;}
+.left-livelike-voting-input-container {justify-content: start !important;display: flex;flex-direction: row;}
 
 .livelike-option-start{
     align-items: flex-start;
@@ -150,17 +153,6 @@ img.\.greyed {
   }
   
   .livelike-voting-number-input {width: 38px;height: 38px;}
-  
-  img#quarter_1 {
-    position: absolute;
-    top: calc(50% - 90px);
-    
-  margin-left: -10px;}
-
-  img#quarter_2 {
-    position: absolute;
-    top: calc(50% - 90px);
-  margin-left: -10px;}
 
   .red {
     color:red !important;
@@ -187,53 +179,68 @@ livelike-widget-root.custom-widget {max-width: 200px;}
 
 
 /* added by Shu */
+#bracket {
+  height: calc(100% - 20rem);
+}
+.col-auto {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  text-align: center;
+}
+
+
 #leftbox_1:before {
   content:'';
   position: absolute;
   width: 40px;
-  height: 25vh;
+  height: 25%;
   border: 2px solid #fff;
   border-right: none;
   border-bottom: none;
-  top: 5vh;
+  top: 5%;
   left: -100px;
-  z-index: 0;
+  z-index: -1;
 }
 #leftbox_1:after {
-  content:'';
+  content:''; 
   position: absolute;
   width: 40px;
-  height: 25vh;
+  height: 25%;
   border: 2px solid #fff;
   border-right: none;
   border-top: none;
-  bottom: 5vh;
+  bottom: 5%;
   left: -100px;
-  z-index: 0;
+  z-index: -1;
 }
 #leftbox:before {
   content:'';
   position: absolute;
   width: 40px;
-  height: 25vh;
+  height: 25%;
   border: 2px solid #fff;
   border-left: none;
   border-bottom: none;
-  top: 5vh;
+  top: 5%;
   right: -100px;
-  z-index: 0;
+  z-index: -1;
 }
 #leftbox:after {
   content:'';
   position: absolute;
   width: 40px;
-  height: 25vh;
+  height: 25%;
   border: 2px solid #fff;
   border-left: none;
   border-top: none;
-  bottom: 5vh;
+  bottom: 5%;
   right: -100px;
-  z-index: 0;
+  z-index: -1;
 }
 
 #middlebox:after {
@@ -268,14 +275,14 @@ livelike-widgets#roundOneLeft, livelike-widgets#roundOneRight {
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .footer-logos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 livelike-widget-root {margin-right: 1rem;}
@@ -304,4 +311,142 @@ livelike-widget-root {margin-right: 1rem;}
 
 #final livelike-footer {
   justify-content: center;
+}
+
+
+
+@media all and (orientation: portrait) {
+  .logo {
+    margin-bottom: 2rem;
+  }
+  .footer-logos {
+    margin: 3rem 0;
+  }
+  .footer-logos img {width: 100%;}
+  
+  .col-auto { height: 2rem; }
+
+  #bracket {
+    height: auto;
+    flex-direction: column;
+  }
+  #quarter_1 {
+    transform: rotate(90deg);
+    left: calc(50% - 10px);
+    position: absolute;
+  }
+  #quarter_2 {
+    transform: rotate(-90deg);
+    left: calc(50% - 10px);
+    position: absolute;
+  margin-top: 1rem;}
+  .semi_1 {
+    transform: rotate(90deg);
+    position: relative;
+    left: 8px;
+    margin: -5rem 0 -4rem;
+  }
+  .semi_2 {
+    transform: rotate(-90deg);
+    position: relative;
+    left: 8px;
+    margin: -4rem 0 -5rem;
+  }
+
+
+
+  livelike-widgets#roundOneLeft, livelike-widgets#roundOneRight {
+    height: auto;
+    flex-direction: row;
+  }
+
+  .custom-widget-position-bottom livelike-option {
+    flex-direction: row-reverse;
+  }
+  .custom-widget-position-bottom livelike-option .left-livelike-voting-input-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end !important;
+  }
+  .custom-widget-position-bottom livelike-footer {
+    text-align: right;
+  }
+
+  #roundOneRight .custom-widget livelike-option, #roundOneRight .custom-widget livelike-option .livelike-voting-input-container {
+    flex-direction: row;
+    justify-content: flex-start !important;
+  }
+  #roundOneRight .custom-widget livelike-footer.right-livelike-footer {
+    justify-content: start;
+  }
+
+  
+
+  /* structure */
+  #leftbox, #middlebox {
+    padding-bottom: 2rem;
+  }
+  #leftbox_1, #rightbox_1 {
+    padding-top: 2rem;
+  }
+  #rightbox_1 {
+    margin-top: 2.5rem !important;
+  }
+  #middlebox livelike-widget-root {
+    flex-direction: column !important;
+  }
+  #rightbox_1 livelike-widget-root {
+    flex-direction: column-reverse !important;
+  }
+  #leftbox:before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 6rem);
+    height: 1rem;
+    border: 2px solid #fff;
+    border-top: none;
+    top: auto;
+    bottom: 0;
+    left: 3rem;
+    right: auto;
+    z-index: -1;
+  }
+  #leftbox:after, #leftbox_1:after {
+    display: none;
+  }
+  #leftbox_1:before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 6rem);
+    height: 1rem;
+    border: 2px solid #fff;
+    border-bottom: none;
+    top: 0;
+    left: 3rem;
+    right: auto;
+    z-index: -1;
+  }
+  #middlebox:after {
+    content:'';
+    position: absolute;
+    width: 2px;
+    height: 2rem;
+    top: auto;
+    right: 50%;
+    background: #ffffff;
+    z-index: -1;
+    bottom: -1rem;
+  }
+  #rightbox_1:after {
+    content:'';
+    position: absolute;
+    width: 2px;
+    height: 2rem;
+    top: -1rem;
+    bottom: auto;
+    left: 50%;
+    background: #ffffff;
+    z-index: -1;
+  }
+
 }

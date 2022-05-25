@@ -49,8 +49,10 @@
                     <button id="alert_close" type="button" class="btn-close" aria-label="Close"></button>
                 </div>
 
+                <div class="logo"><img src="assets/playoffs_lnb.png" style="height:8rem" /></div>
+
     
-                <div class="row" style="height: calc(88vh);">
+                <div id="bracket" class="row">
                     <div class="col-auto">
                         <img id="quarter_1" src="assets/quarter_1.png" height="180px">
                     </div>
@@ -67,13 +69,13 @@
                        
                     </div>
                     <div id="rightbox" class="col" style="position: relative;">
-                        <img src="assets/playoffs_lnb.png" style="width:180px" />
+                        <!-- <img src="assets/playoffs_lnb.png" style="width:180px" /> -->
                         <livelike-widgets id="final" mode="customTimeline">
                         </livelike-widgets>
-                        <div class="footer-logos">
+                        <!-- <div class="footer-logos">
                             <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
                             <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
-                        </div>
+                        </div> -->
 
                     </div>
                     
@@ -94,6 +96,15 @@
                     </div>
 
                 </div>
+
+
+                <div class="footer-logos">
+                    <img src="assets/lnb.svg" style="height: 4rem;" />
+                    <img src="assets/lnbhashtag.png" style="height: 1rem;" /> 
+                </div>
+
+
+
                 <div style="display: none;">
                     <livelike-widgets id="placeHolder" mode="customTimeline">
                     </livelike-widgets>
