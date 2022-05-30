@@ -119,8 +119,32 @@ function registerCustomTimeline() {
             renderRoundTwo(numberPredsResults)
             renderRoundThree(numberPredsResults)
             listenToFollowUpWidget() 
+            renderFollowUps()
         });
     })
+}
+
+function renderFollowUps() {
+    LiveLike.getWidgets({
+        programId: programId,
+        status: "published", //Valid status values are 'scheduled', 'pending', 'published'
+        widgetKinds: ["image-number-prediction-follow-up","text-prediction-follow-up"],
+        ordering: "", //Valid ordering values are 'recent'
+        interactive: true  //Valid interactive values are true, false
+    }).then(({ results }) => {
+
+        let widgetContainer = document.querySelector('#placeHolder_1')
+        results.forEach(
+            widgetPayload => {
+                widgetContainer.showWidget({
+                    widgetPayload,
+                    mode: ({ widget }) => {
+                        return widgetContainer.attach(widget, 'append')
+                    },
+                    initialLoad: true
+                })
+            })
+    });
 }
 
 function renderRoundTwo(results) {
