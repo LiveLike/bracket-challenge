@@ -46,15 +46,19 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         this.requestUpdate();
     }
 
-    validateAndSubmitVote = (options) => {
-        let maxVoteOption = options[0]
+    validateAndSubmitVote = (options, manuallySelectedOption = undefined) => {
+        let maxVoteOption = manuallySelectedOption !== undefined ? manuallySelectedOption : options[0]
         let totalVotes = 0
-        options.forEach(option => {
-            if (maxVoteOption.number < option.number) {
-                maxVoteOption = option
-            }
-            totalVotes += option.number
-        })
+
+        if(manuallySelectedOption === undefined) {
+            options.forEach(option => {
+                if (maxVoteOption.number < option.number) {
+                    maxVoteOption = option
+                }
+                totalVotes += option.number
+            })
+        }
+    
 
         let maxScoreAttribute = this.findAttributeValue('maxScore')
         if(maxScoreAttribute !== null) {
@@ -193,7 +197,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         }
         this.setAllowClickOptions(false)
         this.checkForDuplicates = false
-        this.validateAndSubmitVote(this.options)
+        this.validateAndSubmitVote(this.options, option)
         this.checkForDuplicates = true
     }
 
