@@ -1,10 +1,9 @@
 body {
-    background-image: url(assets/lnb_bg.png);
+    background-image: unset;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #06172b;
+    background-color: rgba(240,240,240,255);
 }
-
 
 .livelike-voting-number-input {font-size: 28px !important; font-weight: bold}
 

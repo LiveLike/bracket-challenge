@@ -6,7 +6,9 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     semiFinalImage = "assets/semi_2.png"
     semiFinalImageClass = "semi_2"
     footerClass = "right-livelike-footer"
-   
+    allowClickOnOption = false
+    checkForDuplicates = true
+
     connectedCallback() {
         super.connectedCallback().then(() => {
             this.options.forEach(option => {
@@ -54,17 +56,31 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
             totalVotes += option.number
         })
 
-        let bestOfAttributeValue = this.getBestOfValueFromWidget()
-        let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
-        if (maxVoteOption.number == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
-            this.lockInVote(options)
-            this.greyOutLosingTeam(maxVoteOption)
-            this.showInputBoxError(false)
-        } else {
-            this.showInputBoxError(true)
-            
-        }
+        let maxScoreAttribute = this.findAttributeValue('maxScore')
+        if(maxScoreAttribute !== null) {
+            let duplicateVotes = options.find(function (option) {
+                return option.number === maxVoteOption.number && option.id !== maxVoteOption.id
+            })
 
+            if(duplicateVotes !== undefined && this.checkForDuplicates === true) {
+                this.setAllowClickOptions(true)
+            } else {
+                this.lockInCorrectVote(options, maxVoteOption)
+            }
+        } else {
+            let maxVotesNeeded = this.getMaxVoteNeeded()
+            if(maxScoreAttribute !== null || (maxVoteOption.number == maxVotesNeeded && totalVotes <= bestOfAttributeValue)) {
+                this.lockInCorrectVote(options, maxVoteOption)
+            } else {
+                this.showInputBoxError(true)
+            }
+        }
+    }
+
+    lockInCorrectVote(options, maxVoteOption) {
+        this.lockInVote(options)
+        this.greyOutLosingTeam(maxVoteOption)
+        this.showInputBoxError(false)
     }
 
     greyOutLosingTeam(maxVoteOption) {
@@ -104,15 +120,18 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     getBestOfValueFromWidget() {
-        let bestOfAttribute = this.widgetPayload.widget_attributes.find(function (element) {
-            return element.key === 'bestOf'
-        })
-
+        let bestOfAttribute = this.findAttributeValue('bestOf')
         let bestOfAttributeValue = 3
         if (bestOfAttribute !== null && bestOfAttribute !== undefined) {
             bestOfAttributeValue = parseInt(bestOfAttribute.value)
         }
         return bestOfAttributeValue
+    }
+
+    findAttributeValue(attributeName) {
+        return this.widgetPayload.widget_attributes.find(function (element) {
+            return element.key === attributeName
+        })
     }
 
     getInputContainerClass() {
@@ -133,7 +152,13 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         const idx = e.target.value.indexOf('.');
         idx !== -1 && (e.target.value = e.target.value.replace(/[.][0-9]+$/, ""));
         const number = e.target.value ? +e.target.value : null
+        this.setAllowClickOptions(false)
         this.updateOption(option, number);
+    }
+
+    setAllowClickOptions(allow) {
+        this.allowClickOnOption = allow
+        this.querySelectorAll('#draw_error')[0].style.visibility = allow ? 'visible' : 'hidden'
     }
 
     getClassForOption(index, halfIndex) {
@@ -151,6 +176,27 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         return "flex-direction:row"
     }
 
+    getMaxVoteNeeded() {
+        let maxScore = this.findAttributeValue('maxScore')
+        if( maxScore != null) {
+            return parseInt(maxScore.value)
+        } 
+
+        let bestOfAttributeValue = this.getBestOfValueFromWidget()
+        return Math.ceil(bestOfAttributeValue / 2)
+        
+    }
+
+    selectOptionOnClick(option) {
+        if(this.allowClickOnOption === false) {
+            return false
+        }
+        this.setAllowClickOptions(false)
+        this.checkForDuplicates = false
+        this.validateAndSubmitVote(this.options)
+        this.checkForDuplicates = true
+    }
+
     render() {
         let index = 0
         let halfIndex = this.options.length / 2
@@ -162,8 +208,7 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
             rootClassName = "custom-widget-position-center"
         }
 
-        let bestOfAttributeValue = this.getBestOfValueFromWidget()
-        let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
+        let maxVotesNeeded = this.getMaxVoteNeeded()
 
         return html`
 <template kind="text-prediction">
@@ -177,7 +222,7 @@ ${this.options.map((option, idx) => {
             const correct = option.number === option.correct_number;
             return html`      
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
-            <livelike-image height="55px" width="55px"></livelike-image>
+            <livelike-image @click="${(e) => this.selectOptionOnClick(option)}" height="55px" width="55px"></livelike-image>
               <div class=${this.getInputContainerClass()}>
                 <input 
                   class="livelike-voting-number-input user-number-input"
@@ -217,6 +262,7 @@ ${this.options.map((option, idx) => {
                   </livelike-widget-footer>
                   </livelike-widget-body>
  </livelike-widget-root>
+ <p id="draw_error" style="color: red; visibility:hidden">Draw! Select winner by clicking</p>
 </template>
 `;
     }

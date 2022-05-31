@@ -2,10 +2,10 @@ const route = "https://cf-blast.livelikecdn.com/api/v1/text-predictions/";
 const numberPredRoute = "https://cf-blast.livelikecdn.com/api/v1/image-number-predictions/";
 
 let program_id = "3d88c167-3212-4023-a116-7d97223a43e2";
-const accessToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGY1NmQzLTdlM2EtNDlmZS04ZTA4LThlY2E1Njk4NDM4YSIsImNsaWVudF9pZCI6ImlTb2ZBQXZBWm8xM2JROHJnOVFJVTZpa2Y2OW9hUGV5WUNuMk1ORG8iLCJhY2Nlc3NfdG9rZW4iOiJyUzBhYkt0eXcxQkxkYTVkeE9MbnVMeHdYdGNqRUtwSVFuX3BES3k2TTZOem5zcXFWV2xYOXciLCJpc19wcm9kdWNlciI6dHJ1ZSwiaXNzIjoiYmxhc3QiLCJpYXQiOjE2NTMyOTIzODF9.KfKY0XI5B4mh_3-VjrhR4wIm1CukcQCq7ixo229Zxyc";
+const accessToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjUwMWZlLWIwODQtNDZjMi04NjM5LWM3ZjJkNjljOGExMSIsImNsaWVudF9pZCI6Im1PQll1bDE4cXVmZnJCRHVxMklBQ0t0VnVMYlV6WElQeWU1UzNicTUiLCJhY2Nlc3NfdG9rZW4iOiJhaHF5SDY0WDRzVXExVm1jUHZlMUxPT1NRcWo2dmRCQU5ZRU5WYThELXBNVDNFcnkyb3E5TGciLCJpc19wcm9kdWNlciI6dHJ1ZSwiaXNzIjoiYmxhc3QiLCJpYXQiOjE2NTM5ODkwMjR9.UamAu_1q-6i9bfMMjercJgTaTQ58bz-QM3Bd51cSegk";
 const confirmation_message = "Thank you for your answer!";
 const scheduledAt = new Date(Date.now());
-const interactive_until = new Date(Date.now() + 1000 * 60 * 60 * 24 * 5);
+//const interactive_until = new Date(Date.now() + 1000 * 60 * 60 * 24 * 5);
 
 const numberOfTeamsSelect = document.getElementById("select-number-of-teams");
 const generateWidgetsButton = document.getElementById("generate-widgets-button");
@@ -43,7 +43,7 @@ function getPath(isNumberPredictionWidget) {
 }
 
 
-const createWidget = (programId, question, confirmation_message, options, scheduledAt, interactiveUntil, attributes, isNumberPredictionWidget) => {
+const createWidget = (programId, question, confirmation_message, options, scheduledAt, attributes, isNumberPredictionWidget) => {
 
     let path = getPath(isNumberPredictionWidget)
 
@@ -52,7 +52,7 @@ const createWidget = (programId, question, confirmation_message, options, schedu
         program_id: programId,
         question: question,
         confirmation_message: confirmation_message,
-        interactive_until: interactiveUntil,
+        //interactive_until: interactiveUntil,
         options: options
     }
 
@@ -72,7 +72,7 @@ const createWidget = (programId, question, confirmation_message, options, schedu
 };
 
 const run = () => {
-    createWidget(program_id, question, confirmation_message, options, scheduledAt, interactive_until).then(x => {
+    createWidget(program_id, question, confirmation_message, options, scheduledAt).then(x => {
         console.log("done");
     });
 };
@@ -134,9 +134,12 @@ function processWidgetQ(widgetProcessingIndex, isNumberPredictionWidget) {
     let attributes = []
     let attributeIndex = 0
     attributes[attributeIndex++] = {"key": "isInitialRound","value": widget.round === 0 ? "true" : "false"}
-    attributes[attributeIndex++] = {"key": "bestOf","value": (widget.round === 1 || widget.round === 2) ? "5" : "3"} 
+
+    //TODO: enter either bestOf or maxValue, add logic
+    //attributes[attributeIndex++] = {"key": "bestOf","value": (widget.round === 1 || widget.round === 2) ? "5" : "3"} 
+    attributes[attributeIndex++] = {"key": "maxScore","value": "99"} 
     
-    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, attributes,isNumberPredictionWidget)
+    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, attributes,isNumberPredictionWidget)
         .then(response => {
             console.log("created widget "+widget.question)
             publishWidget(response.data.id, scheduledAt, isNumberPredictionWidget).then(res => {
@@ -200,7 +203,7 @@ generateProgramButton.addEventListener("click", (e) => {
     const programName = document.getElementById("bracket-name").value;
 
     var data = {
-        client_id: "iSofAAvAZo13bQ8rg9QIU6ikf69oaPeyYCn2MNDo",
+        client_id: "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5",
         title: programName,
         scheduled_at: isoDate
     }

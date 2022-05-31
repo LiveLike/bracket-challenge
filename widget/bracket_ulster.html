@@ -1,0 +1,160 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bracket Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles_ulster.css" />
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="alert_w_leaderboard" style="display: none;" class="alert alert-success">
+            Click <a href="#" class="alert-link">here to see leaderboard</a>
+        </div>
+
+        <div id="profile_tab" style="display: none;">
+            <div class="profile-container">
+                <form autocomplete="off">
+                    <p>Bracket Challenge</p>
+                    <label class="form-label" for="form-user-fullName"><b>Full Name</b><b class="red-text">*</b></label>
+                    <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="text"
+                        id="form-user-fullName" class="profile-input form-control" />
+                    <br />
+                    <label class="form-label" for="form-user-nickName"><b>Username</b><b class="red-text">*</b></label>
+                    <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="text"
+                        id="form-user-nickName" class="profile-input form-control" />
+                    <br />
+                    <label class="form-label" for="form-user-email"><b>Email</b><b class="red-text">*</b></label>
+                    <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="email"
+                        id="form-user-email" class="profile-input form-control" />
+                </form>
+                <br />
+                <button class="btn btn-default" id="createProfileButton" onclick="handleCreateUserProfile()">Create My Profile.</button>
+                <p class="small-text">*mandatory fields</p>
+                <p class="small-text">Click <a href="https://www.google.com" class="alert-link">here to see T&C</a></p>
+                
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="bracket_tab" style="display: none; margin:0 auto">
+
+                <div id="validation_error" class="alert alert-warning alert-dismissible fade hide" role="alert">
+                     <span id="error_content"></span>
+                    <button id="alert_close" type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+
+                <div class="logo"><img src="assets/ulster_rugby.png" style="height:8rem" /></div>
+
+    
+                <div id="bracket" class="row">
+                    <div class="col-auto">
+                        <img id="quarter_1" src="assets/quarter_1.png" height="180px">
+                    </div>
+                    <div id="leftbox" class="col" style="position: relative;">
+                        <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+                       
+                        </div>
+
+                    <div id="middlebox"  class="col my-auto" style="position: relative;">
+                        <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+
+                       
+                    </div>
+                    <div id="rightbox" class="col" style="position: relative;">
+                        <!-- <img src="assets/playoffs_lnb.png" style="width:180px" /> -->
+                        <livelike-widgets id="final" mode="customTimeline">
+                        </livelike-widgets>
+                        <!-- <div class="footer-logos">
+                            <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
+                            <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
+                        </div> -->
+
+                    </div>
+                    
+
+                    <div id="rightbox_1"  class="col my-auto" style="position: relative;">
+                        <livelike-widgets id="roundTwoRight" mode="customTimeline">
+                        </livelike-widgets>
+
+                       
+                    </div>
+
+                    <div id="leftbox_1"  class="col" style="position: relative;">
+                        <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+                    </div>
+                    <div class="col-auto">
+                        <img id="quarter_2" src="assets/quarter_2.png" height="180px">
+                    </div>
+
+                </div>
+
+
+                <div class="footer-logos" style="display: none;">
+                    <img src="assets/ulster.webp" style="height: 4rem;" />
+                    <img src="assets/lnbhashtag.png" style="height: 1rem;" /> 
+                </div>
+
+
+
+                <div style="display: none;">
+                    <livelike-widgets id="placeHolder" mode="customTimeline">
+                    </livelike-widgets>
+
+                    <livelike-widgets id="placeHolder_1" mode="customTimeline">
+                    </livelike-widgets>
+                </div>
+            </div>
+        </div>
+
+        <div id="leaderboard_tab" style="display: none; width:60%; height:60%; margin:0 auto"">
+            <div class="leaderboard-container">
+                <button type="button" class="btn-close btn-close-white"  style="float:right"
+                    id="leaderboard_close"></button>
+
+                <table class="leaderboard-table">
+                    <thead>
+                        <th><b>Rank</b></th>
+                        <th><b>Player</b></th>
+                        <th><b>Score</b></th>
+                    </thead>
+                    <tbody class="leaderboard-entries-container"> </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/@livelike/engagementsdk/livelike.umd.js"></script>
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> <!-- For Internet Explorer compatibility -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+
+
+        <script src="custom-widgets/base_custom_template.js"></script>
+        <script src="custom-widgets/left_round_custom_template.js"></script>
+        <script src="custom-widgets/right_round_custom_template.js"></script>
+        <script src="bracket_js.js"></script>
+        <script src="profile.js"></script>
+
+        <script>
+            const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
+
+            const programId = "a6807766-668a-4589-8e98-59cd2aea9e09";
+            const leaderboardId = '50b17f68-b5d6-45f6-bc73-c594bc071e9e';
+
+            // const programId = "078dac72-554e-4f52-8db4-fd592e59439d"
+            // const leaderboardId="c17a872c-bc4d-47d0-8d3c-d08cfba8ed09";
+
+            init(clientId, programId, leaderboardId);
+        </script>
+</body>
+
+</html>

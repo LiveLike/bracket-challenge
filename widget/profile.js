@@ -141,7 +141,7 @@ const setupLeaderboard = (leaderboardId => {
       }
 
       // Loop through leaderboard entries to create list items for each entry
-      lb.entries = lb.entries.slice(0, 10);
+      //lb.entries = lb.entries.slice(0, 10);
       lb.entries.forEach((entry) => {
         const entryRow = document.createElement('tr');
         entryRow.setAttribute('class', 'list-item');
