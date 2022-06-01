@@ -9,6 +9,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles_ulster.css" />
 
+
 </head>
 
 <body>
@@ -73,8 +74,11 @@
                         <livelike-widgets id="final" mode="customTimeline">
                         </livelike-widgets>
                         <!-- <div class="footer-logos">
-                            <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
-                            <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
+                            <div style="display: none;">
+                                <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
+                                <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
+                            </div>
+                            
                         </div> -->
 
                     </div>
@@ -143,6 +147,8 @@
         <script src="custom-widgets/right_round_custom_template.js"></script>
         <script src="bracket_js.js"></script>
         <script src="profile.js"></script>
+        <script src="html2canvas.min.js"></script>
+        <script src="node_modules/dom-to-image/dist/dom-to-image.min.js"></script>
 
         <script>
             const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
@@ -155,6 +161,7 @@
 
             init(clientId, programId, leaderboardId);
         </script>
+        
 </body>
 
 </html>

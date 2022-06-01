@@ -1,3 +1,5 @@
+
+
 const updateUserProfile = ({ fullName, email, nickname }) => {
   LiveLike.updateUserProfile({
     accessToken: LiveLike.userProfile.access_token,
@@ -161,8 +163,49 @@ const setupLeaderboard = (leaderboardId => {
 
 
   document.getElementsByClassName('alert-link')[0].onclick = function(){
-    updateLeaderboardData()
+    html2canvas(document.querySelector("#bracket_tab"),{logging: true, letterRendering: 1, allowTaint : true, useCORS: true }).then(canvas => {
+       let url = canvas.toDataURL('image/png') // finally produced image url
+
+        if (navigator.share) {
+          navigator.share({
+            title: 'Title to be shared',
+            text: 'Text to be shared',
+            url: "https://pbs.twimg.com/media/FTNGO1UaAAEP6o6?format=jpg&name=900x900",
+          })
+      }
+      //document.body.appendChild(canvas)
+
+      downloadBase64File(url, "test")
+      canvas.toBlob(function(blob) {
+        saveAs(blob, "Dashboard.png"); 
+      });
+    });
+
+    // var node = document.getElementById('bracket_tab');
+
+    // domtoimage.toPng(node)
+    // .then(function (dataUrl) {
+    //     var img = new Image();
+    //     img.src = dataUrl;
+    //     document.body.appendChild(img);
+    // })
+    // .catch(function (error) {
+    //     console.error('oops, something went wrong!', error);
+    // });
+
+    //updateLeaderboardData()
   }
+
+  function downloadBase64File(contentBase64, fileName) {
+    const linkSource = `${contentBase64}`;
+    const downloadLink = document.createElement('a');
+    document.body.appendChild(downloadLink);
+
+    downloadLink.href = linkSource;
+    downloadLink.target = '_self';
+    downloadLink.download = fileName;
+    downloadLink.click(); 
+}
 
   document.getElementById('leaderboard_close').onclick = function(){
     showChallengeTab()

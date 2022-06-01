@@ -4,7 +4,6 @@
 //render next round 2 widgets without options
 //render next round 2 widgets without options
 
-
 var widgetIds = []
 var roundsArr = []
 let textPredictionWidgetIdArr = []

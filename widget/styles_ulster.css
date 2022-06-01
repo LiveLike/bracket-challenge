@@ -312,6 +312,7 @@ livelike-widget-root {margin-right: 1rem;}
   justify-content: center;
 }
 
+input.livelike-voting-number-input.user-number-input {caret-color: black;}
 
 
 @media all and (orientation: portrait) {

@@ -261,7 +261,7 @@ ${this.options.map((option, idx) => {
                     style="visibility:${this.predictBtnVisibility}"
                     @click=${() => this.validateAndSubmitVote(this.options)}
                     ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
-                  >Valider</button>
+                  >Predict</button>
                   
                   </livelike-widget-footer>
                   </livelike-widget-body>
