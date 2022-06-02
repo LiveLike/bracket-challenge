@@ -170,15 +170,9 @@ const setupLeaderboard = (leaderboardId => {
           navigator.share({
             title: 'Title to be shared',
             text: 'Text to be shared',
-            url: "https://pbs.twimg.com/media/FTNGO1UaAAEP6o6?format=jpg&name=900x900",
+            url: url,
           })
       }
-      //document.body.appendChild(canvas)
-
-      downloadBase64File(url, "test")
-      canvas.toBlob(function(blob) {
-        saveAs(blob, "Dashboard.png"); 
-      });
     });
 
     // var node = document.getElementById('bracket_tab');
