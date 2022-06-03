@@ -188,7 +188,7 @@ const setupLeaderboard = (leaderboardId => {
     html2canvas(document.querySelector("#bracket_tab"),{foreignObjectRendering: true,logging: true, letterRendering: 1, allowTaint : true }).then(canvas => {
       let url = canvas.toDataURL('image/png') // finally produced image url
       
-      const blob = await (await fetch(url)).blob();
+      const blob = await (await fetch(url)).blob()
       const file = new File([blob], 'fileName.png', { type: blob.type });
 
       if (navigator.share) {
