@@ -192,7 +192,7 @@ const setupLeaderboard = (leaderboardId => {
          navigator.share({
            title: 'Title to be shared',
            text: 'Text to be shared',
-           url: url,
+           url: "https://pbs.twimg.com/media/FTNGO1UaAAEP6o6?format=jpg&name=900x900",
          })
      } else {
         let shareButton = document.querySelector("#share")
