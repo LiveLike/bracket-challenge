@@ -265,6 +265,7 @@ function checkIfAllPredictionsDone() {
         //All preds done
         //alert("All Predictions done")
         document.getElementById("alert_w_leaderboard").style.display = 'block'
+        document.getElementById("share-twitter-btn").style.display = 'block'
     }
 }
 

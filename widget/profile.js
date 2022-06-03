@@ -163,43 +163,10 @@ const setupLeaderboard = (leaderboardId => {
 
 
   document.getElementsByClassName('alert-link')[0].onclick = function(){
-    html2canvas(document.querySelector("#bracket_tab"),{logging: true, letterRendering: 1, allowTaint : true, useCORS: true }).then(canvas => {
-       let url = canvas.toDataURL('image/png') // finally produced image url
-
-        if (navigator.share) {
-          navigator.share({
-            title: 'Title to be shared',
-            text: 'Text to be shared',
-            url: url,
-          })
-      }
-    });
-
-    // var node = document.getElementById('bracket_tab');
-
-    // domtoimage.toPng(node)
-    // .then(function (dataUrl) {
-    //     var img = new Image();
-    //     img.src = dataUrl;
-    //     document.body.appendChild(img);
-    // })
-    // .catch(function (error) {
-    //     console.error('oops, something went wrong!', error);
-    // });
-
-    //updateLeaderboardData()
+    updateLeaderboardData()
   }
 
-  function downloadBase64File(contentBase64, fileName) {
-    const linkSource = `${contentBase64}`;
-    const downloadLink = document.createElement('a');
-    document.body.appendChild(downloadLink);
-
-    downloadLink.href = linkSource;
-    downloadLink.target = '_self';
-    downloadLink.download = fileName;
-    downloadLink.click(); 
-}
+  
 
   document.getElementById('leaderboard_close').onclick = function(){
     showChallengeTab()
@@ -217,4 +184,22 @@ const setupLeaderboard = (leaderboardId => {
     //buildProfileRank(leaderboardId);
   };
   
+  captureScreenShotAndShare = ()=> {
+    html2canvas(document.querySelector("#bracket_tab"),{foreignObjectRendering: true,logging: true, letterRendering: 1, allowTaint : true }).then(canvas => {
+      let url = canvas.toDataURL('image/png') // finally produced image url
+      
+      if (navigator.share) {
+         navigator.share({
+           title: 'Title to be shared',
+           text: 'Text to be shared',
+           url: url,
+         })
+     } else {
+        let shareButton = document.querySelector("#share")
+        shareButton.setAttribute("data-url",url)
+        shareButton.click()
+     }
+   });
+  }
+
 });
