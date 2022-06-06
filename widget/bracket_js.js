@@ -395,3 +395,24 @@ function selectUnSelectNewOption(isSlotOne, widgetElm, selectedOption) {
         widgetElm.showPredictionButton()
     return selectedOptionInNewWidget
 }
+
+async function captureScreenShotAndShare() {
+    html2canvas(document.querySelector("#bracket_tab"),{foreignObjectRendering: true,logging: true, letterRendering: 1, allowTaint : true }).then(canvas => {
+      let url = canvas.toDataURL('image/png') // finally produced image url
+      
+      const blob = await (fetch(url)).blob()
+      const file = new File([blob], 'fileName.png', { type: blob.type });
+
+      if (navigator.share) {
+         navigator.share({
+           title: 'Title to be shared',
+           text: 'Text to be shared',
+           url: [file],
+         })
+     } else {
+        let shareButton = document.querySelector("#share")
+        shareButton.setAttribute("data-url",url)
+        shareButton.click()
+     }
+   });
+  }
