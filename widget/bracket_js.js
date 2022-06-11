@@ -80,8 +80,7 @@ function registerCustomTimeline() {
         programId: programId,
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
-        ordering: "", //Valid ordering values are 'recent'
-        interactive: true  //Valid interactive values are true, false
+        ordering: "" //Valid interactive values are true, false
     }).then(({ results }) => {
 
         var numberPredsResults = results
@@ -91,8 +90,8 @@ function registerCustomTimeline() {
             programId: programId,
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
-            ordering: "", //Valid ordering values are 'recent'
-            interactive: true  //Valid interactive values are true, false
+            ordering: "" //Valid ordering values are 'recent'
+          //Valid interactive values are true, false
         }).then(({ results }) => {
 
             let widgetContainer = document.querySelector('#placeHolder')
@@ -128,8 +127,7 @@ function renderFollowUps() {
         programId: programId,
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction-follow-up","text-prediction-follow-up"],
-        ordering: "", //Valid ordering values are 'recent'
-        interactive: true  //Valid interactive values are true, false
+        ordering: ""//Valid interactive values are true, false
     }).then(({ results }) => {
 
         let widgetContainer = document.querySelector('#placeHolder_1')
