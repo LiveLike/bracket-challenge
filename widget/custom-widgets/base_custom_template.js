@@ -166,12 +166,12 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
 
         return html`
-<template kind="text-prediction">
-<livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
-<img style="display:${this.widgetPayload.isSemiFinal == true ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
-<livelike-widget-body>
+            <template kind="text-prediction">
+            <livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
+            <img style="display:${this.widgetPayload.isSemiFinal == true ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
+            <livelike-widget-body>
 
-${this.options.map((option, idx) => {
+            ${this.options.map((option, idx) => {
             index++
             let className = this.getClassForOption(index, halfIndex)
             const correct = option.number === option.correct_number;
@@ -205,19 +205,19 @@ ${this.options.map((option, idx) => {
             </div>
               </livelike-option>
     `;
-        })}
-  <livelike-footer class="${this.footerClass}">
-  <button
-                    class="predict-button"
-                    style="visibility:${this.predictBtnVisibility}"
-                    @click=${() => this.validateAndSubmitVote(this.options)}
-                    ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
-                  >Valider</button>
-                  
-                  </livelike-widget-footer>
-                  </livelike-widget-body>
- </livelike-widget-root>
-</template>
-`;
+                })}
+            <livelike-footer class="${this.footerClass}">
+            <button
+                                class="predict-button"
+                                style="visibility:${this.predictBtnVisibility}"
+                                @click=${() => this.validateAndSubmitVote(this.options)}
+                                ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
+                            >Valider</button>
+                            
+                            </livelike-widget-footer>
+                            </livelike-widget-body>
+            </livelike-widget-root>
+            </template>
+        `;
     }
 }
