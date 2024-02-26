@@ -3,10 +3,10 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     option_show = "display:none";
     predictBtnVisibility = "hidden"
     index = 0
-    semiFinalImage= "assets/semi_2.png"
-    semiFinalImageClass= "semi_2"
+    semiFinalImage = "assets/semi_2.png"
+    semiFinalImageClass = "semi_2"
     footerClass = "right-livelike-footer"
-
+   
     connectedCallback() {
         super.connectedCallback().then(() => {
             this.options.forEach(option => {
@@ -20,6 +20,14 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
             const idx = this.options.findIndex(c => c.id === vote.option_id);
             this.options[idx].number = vote.number;
         })
+
+        let maxVoteOption = this.options[0]
+        this.options.forEach(option => {
+            if (maxVoteOption.number < option.number) {
+                maxVoteOption = option
+            }
+        })
+        this.greyOutLosingTeam(maxVoteOption)
         this.requestUpdate();
     }
 
@@ -30,38 +38,69 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     updateFollowUp = (updatedOptions) => {
         let index = 0
-        updatedOptions.forEach(updatedOption =>{
+        updatedOptions.forEach(updatedOption => {
             this.options[index++].correct_number = updatedOption.correct_number
         })
         this.requestUpdate();
     }
 
     validateAndSubmitVote = (options) => {
-        let maxVote = options[0].number
+        let maxVoteOption = options[0]
         let totalVotes = 0
         options.forEach(option => {
-            if(maxVote < option.number) {
-                maxVote = option.number
+            if (maxVoteOption.number < option.number) {
+                maxVoteOption = option
             }
-           totalVotes += option.number
+            totalVotes += option.number
         })
 
         let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
-        if (maxVote == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
+        if (maxVoteOption.number == maxVotesNeeded && totalVotes <= bestOfAttributeValue) {
             this.lockInVote(options)
+            this.greyOutLosingTeam(maxVoteOption)
+            this.showInputBoxError(false)
         } else {
-            alert("Vote Count needs to match " + bestOfAttributeValue)
+            this.showInputBoxError(true)
+            
         }
 
     }
 
-    showOptions(show) {
-        show ? this.option_show = "display:flex" : this.option_show = "display:none";
+    greyOutLosingTeam(maxVoteOption) {
+        this.querySelectorAll('livelike-image').forEach(livelikeImageNode =>{
+            if(livelikeImageNode.childNodes[0].alt !== maxVoteOption.description) {
+                livelikeImageNode.childNodes[0].classList.add('.greyed')
+            }
+        })
+    }
+
+    showInputBoxError(show) {
+        let errorElement = document.getElementById('validation_error')
+        
         if(show) {
-            this.showPredictionButton()
+            errorElement.classList.add('show')
+        } else {
+            errorElement.classList.remove('show')
+        }
+
+        if(show) {
+            if(this.getBestOfValueFromWidget() === 5) {
+                document.getElementById('error_content').innerHTML = "Au meilleur des cinq matchs"
+            } else {
+                document.getElementById('error_content').innerHTML = "Au meilleur des trois matchs"
+            }
+            
         }
         
+    }
+    
+    showOptions(show) {
+        show ? this.option_show = "display:flex" : this.option_show = "display:none";
+        if (show) {
+            this.showPredictionButton()
+        }
+
     }
 
     getBestOfValueFromWidget() {
@@ -90,13 +129,13 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
 
     keypressHandler = e => e.which === 46 && (e.returnValue = false);
 
-    inputHandler = (option,e) => {
+    inputHandler = (option, e) => {
         const idx = e.target.value.indexOf('.');
-        idx !== -1 && (e.target.value = e.target.value.replace(/[.][0-9]+$/,""));
+        idx !== -1 && (e.target.value = e.target.value.replace(/[.][0-9]+$/, ""));
         const number = e.target.value ? +e.target.value : null
-        this.updateOption(option,number);
-      }
-      
+        this.updateOption(option, number);
+    }
+
     getClassForOption(index, halfIndex) {
         let className = "livelike-option-end"
         if (index > halfIndex) {
@@ -106,7 +145,10 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
     }
 
     getFlexDirectionForRoot() {
-        return "flex-direction:row-reverse"
+        if(this.widgetPayload.isSemiFinal == true) {
+            return "flex-direction:row-reverse"    
+        }
+        return "flex-direction:row"
     }
 
     render() {
@@ -119,23 +161,23 @@ class BaseCustomImagePrediction extends LiveLikeNumberPrediction {
         if(this.widgetPayload.positionCenter === true) {
             rootClassName = "custom-widget-position-center"
         }
-        
+
         let bestOfAttributeValue = this.getBestOfValueFromWidget()
         let maxVotesNeeded = Math.ceil(bestOfAttributeValue / 2)
 
         return html`
-<template kind="text-prediction">
-<livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
-<img style="display:${this.widgetPayload.isSemiFinal == true ? "block":"none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
-<livelike-widget-body>
+            <template kind="text-prediction">
+            <livelike-widget-root style="display:flex; ${this.getFlexDirectionForRoot()}" class="${rootClassName}">
+            <img style="display:${this.widgetPayload.isSemiFinal == true ? "block" : "none"}" class="${this.semiFinalImageClass}" src="${this.semiFinalImage}">
+            <livelike-widget-body>
 
-${this.options.map((option, idx) => {
+            ${this.options.map((option, idx) => {
             index++
             let className = this.getClassForOption(index, halfIndex)
             const correct = option.number === option.correct_number;
-            return html`
+            return html`      
             <livelike-option class=${className} style="${this.option_show}" index="${idx}">
-            <livelike-image height="80px" width="80px"></livelike-image>
+            <livelike-image height="55px" width="55px"></livelike-image>
               <div class=${this.getInputContainerClass()}>
                 <input 
                   class="livelike-voting-number-input user-number-input"
@@ -145,7 +187,7 @@ ${this.options.map((option, idx) => {
                   (!validity.stepMismatch||(value=parseInt(this.value)));"
                   .value="${option.number}"
                   min="0" 
-                  max="2"
+                  max="${maxVotesNeeded}"
                   maxlength="1"
                   @keypress=${this.keypressHandler}
                   @input=${(e) => this.inputHandler(option, e)}
@@ -163,19 +205,19 @@ ${this.options.map((option, idx) => {
             </div>
               </livelike-option>
     `;
-        })}
-  <livelike-footer class="${this.footerClass}">
-  <button
-                    class="predict-button"
-                    style="visibility:${this.predictBtnVisibility}"
-                    @click=${() => this.validateAndSubmitVote(this.options)}
-                    ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
-                  >Valider</button>
-                  
-                  </livelike-widget-footer>
-                  </livelike-widget-body>
-</livelike-widget-root>
-</template>
-`;
+                })}
+            <livelike-footer class="${this.footerClass}">
+            <button
+                                class="predict-button"
+                                style="visibility:${this.predictBtnVisibility}"
+                                @click=${() => this.validateAndSubmitVote(this.options)}
+                                ?disabled="${this.disabled || this.voteDisable || this.voteButtonDisabled}"
+                            >Valider</button>
+                            
+                            </livelike-widget-footer>
+                            </livelike-widget-body>
+            </livelike-widget-root>
+            </template>
+        `;
     }
 }

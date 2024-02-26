@@ -13,14 +13,14 @@
 
 <body>
     <div class="container">
-        <div id="alert_w_leaderboard" style="visibility: hidden;" class="alert alert-success">
-            <strong>All Done!</strong> Click <a href="#" class="alert-link">here to see leaderboard</a>.
+        <div id="alert_w_leaderboard" style="display: none;" class="alert alert-success">
+            Accédez au classement en cliquant <a href="#" class="alert-link">ici.</a>
         </div>
 
         <div id="profile_tab" style="display: none;">
             <div class="profile-container">
                 <form autocomplete="off">
-                    <p>Bracket Challenge. <br />Veuillez créer un profil pour jouer.</p>
+                    <p>Bracket Challenge</p>
                     <label class="form-label" for="form-user-fullName"><b>Nom complet</b><b class="red-text">*</b></label>
                     <input onchange="performUserFormValidation()" onkeydown="performUserFormValidation()" type="text"
                         id="form-user-fullName" class="profile-input form-control" />
@@ -36,90 +36,94 @@
                 <br />
                 <button class="btn btn-default" id="createProfileButton" onclick="handleCreateUserProfile()">Créer mon profil.</button>
                 <p class="small-text">*Champs obligatoire</p>
+                <p class="small-text">Veuillez créer un profil pour participer et tenter de gagner le maillot de l’équipe votre choix ainsi que le ballon officiel des Playoffs. <a href="https://www.lnb.fr/elite/wp-content/uploads/2022/05/23052022_Reglement_BracketChallenge-2.pdf" class="alert-link">Conditions et règlements</a></p>
+                
             </div>
         </div>
 
-        <div id="bracket_tab">
-            <div class="row">
-                <div class="col-auto">
-                    <img id="quarter_1" src="assets/quarter_1.png" width="18px" height="180px">
-                </div>
-                <div id="leftbox" class="col my-auto">
-                    <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
-                    </livelike-widgets>
-                    <!-- <div style="position: fixed; 
-                    top:23.8%; left:16%;border-top:2px solid white; 
-                    width: 10%;height: 15%;
-                    border-right:2px solid white"></div>
+        <div class="container">
+            <div id="bracket_tab" style="display: none; margin:0 auto">
 
-                    <div style="position: fixed; 
-                            bottom:14.6%; left:16%;border-bottom:2px solid white; 
-                            width: 10%;height: 15%;
-                            border-right:2px solid white"></div> -->
+                <div id="validation_error" class="alert alert-warning alert-dismissible fade hide" role="alert">
+                     <span id="error_content"></span>
+                    <button id="alert_close" type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+
+                <div class="logo"><img src="assets/playoffs_lnb.png" style="height:8rem" /></div>
+
+    
+                <div id="bracket" class="row">
+                    <div class="col-auto">
+                        <img id="quarter_1" src="assets/quarter_1.png" height="180px">
+                    </div>
+                    <div id="leftbox" class="col" style="position: relative;">
+                        <livelike-widgets id="roundOneLeft" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+                       
+                        </div>
+
+                    <div id="middlebox"  class="col my-auto" style="position: relative;">
+                        <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+
+                       
+                    </div>
+                    <div id="rightbox" class="col" style="position: relative;">
+                        <!-- <img src="assets/playoffs_lnb.png" style="width:180px" /> -->
+                        <livelike-widgets id="final" mode="customTimeline">
+                        </livelike-widgets>
+                        <!-- <div class="footer-logos">
+                            <img src="assets/lnb.svg" style="height: 65px;width: 150px;" />
+                            <img src="assets/lnbhashtag.png" width="280px" height="18px" /> 
+                        </div> -->
+
+                    </div>
+                    
+
+                    <div id="rightbox_1"  class="col my-auto" style="position: relative;">
+                        <livelike-widgets id="roundTwoRight" mode="customTimeline">
+                        </livelike-widgets>
+
+                       
                     </div>
 
-                <div id="middlebox"  class="col my-auto">
-                    <livelike-widgets id="roundTwoLeft" class="float-child" mode="customTimeline">
+                    <div id="leftbox_1"  class="col" style="position: relative;">
+                        <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
+                        </livelike-widgets>
+                    </div>
+                    <div class="col-auto">
+                        <img id="quarter_2" src="assets/quarter_2.png" height="180px">
+                    </div>
+
+                </div>
+
+
+                <div class="footer-logos">
+                    <img src="assets/lnb.svg" style="height: 4rem;" />
+                    <img src="assets/lnbhashtag.png" style="height: 1rem;" /> 
+                </div>
+
+
+
+                <div style="display: none;">
+                    <livelike-widgets id="placeHolder" mode="customTimeline">
                     </livelike-widgets>
 
-                    <!-- <div style="position: fixed; 
-                    top: 36.7%; left: 30.2%;border-bottom:2px solid white; 
-                    width: 8%;height: 15%;"></div> -->
-                </div>
-                <div id="rightbox" class="col my-auto">
-                    <img src="assets/playoffs_lnb.png" style="margin-bottom:60px" />
-                    <livelike-widgets id="final" mode="customTimeline">
-                    </livelike-widgets>
-                    <img src="assets/lnb.svg" style="position: fixed; top:80%;left: 45%;" width="180px" height="86px" />
-                    <img src="assets/lnbhashtag.png" style="position: fixed; top:92%;left: 41%;" width="280px" height="18px" /> 
-
-                </div>
-                <div id="rightbox_1"  class="col my-auto">
-                    <livelike-widgets id="roundTwoRight" mode="customTimeline">
-                    </livelike-widgets>
-
-                    <!-- <div style="position: fixed; 
-                    top: 36.7%; right: 35.5%;border-bottom:2px solid white; 
-                    width: 8%;height: 15%;"></div>
-
-                    <div style="position: fixed; 
-                    top:23.8%; right:20%;border-top:2px solid white; 
-                    width: 10%;height: 15%;
-                    border-left:2px solid white"></div>
-
-                    <div style="position: fixed; 
-                    bottom:14.6%; right:20%;border-bottom:2px solid white; 
-                    width: 10%;height: 15%;
-                    border-left:2px solid white"></div> -->
-
-                </div>
-
-                <div id="leftbox_1"  class="col my-auto">
-                    <livelike-widgets id="roundOneRight" class="float-child" mode="customTimeline">
+                    <livelike-widgets id="placeHolder_1" mode="customTimeline">
                     </livelike-widgets>
                 </div>
-                <div class="col-auto">
-                    <img id="quarter_2" src="assets/quarter_2.png" width="18px" height="180px">
-                </div>
-
-            </div>
-            <div style="display: none;">
-                <livelike-widgets id="placeHolder" mode="customTimeline">
-                </livelike-widgets>
-
-
             </div>
         </div>
 
-        <div id="leaderboard_tab" style="display: none;">
+        <div id="leaderboard_tab" style="display: none; width:60%; height:60%; margin:0 auto"">
             <div class="leaderboard-container">
-                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" style="float:right"
+                <button type="button" class="btn-close btn-close-white"  style="float:right"
                     id="leaderboard_close"></button>
 
                 <table class="leaderboard-table">
                     <thead>
-                        <th><b>Rank</b></th>
-                        <th><b>Player</b></th>
+                        <th><b>Rang</b></th>
+                        <th><b>Joueur</b></th>
                         <th><b>Score</b></th>
                     </thead>
                     <tbody class="leaderboard-entries-container"> </tbody>
@@ -141,10 +145,10 @@
         <script src="profile.js"></script>
 
         <script>
-            const clientId = "mOBYul18quffrBDuq2IACKtVuLbUzXIPye5S3bq5";
+            const clientId = "iSofAAvAZo13bQ8rg9QIU6ikf69oaPeyYCn2MNDo";
 
-            const programId = "69eacfb3-9656-455e-9379-11dfcaaac617";
-            const leaderboardId = '25468dd5-ba32-4530-b6df-ce89c7babc60';
+            const programId = "a345215a-4b35-4ea2-907d-75cff4229f6c";
+            const leaderboardId = '50b17f68-b5d6-45f6-bc73-c594bc071e9e';
 
             // const programId = "078dac72-554e-4f52-8db4-fd592e59439d"
             // const leaderboardId="c17a872c-bc4d-47d0-8d3c-d08cfba8ed09";

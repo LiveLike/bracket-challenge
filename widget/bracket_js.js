@@ -65,7 +65,11 @@ function listenToFollowUpWidget(){
         {programId: programId}, 
         (e) => {
             let imagePredWidgetId = e.widgetPayload.image_number_prediction_id
-            queryWidgetUsingId(imagePredWidgetId).updateFollowUp(e.widgetPayload.options)
+            let numberPredWidget = queryWidgetUsingId(imagePredWidgetId)
+            if(numberPredWidget !== null && numberPredWidget !== undefined) {
+                numberPredWidget.updateFollowUp(e.widgetPayload.options)
+            }
+            
         }
       );
 }
@@ -77,8 +81,7 @@ function registerCustomTimeline() {
         programId: programId,
         status: "published", //Valid status values are 'scheduled', 'pending', 'published'
         widgetKinds: ["image-number-prediction"],
-        ordering: "", //Valid ordering values are 'recent'
-        interactive: true  //Valid interactive values are true, false
+        ordering: ""
     }).then(({ results }) => {
 
         var numberPredsResults = results
@@ -88,8 +91,7 @@ function registerCustomTimeline() {
             programId: programId,
             status: "published", //Valid status values are 'scheduled', 'pending', 'published'
             widgetKinds: ["text-prediction"],
-            ordering: "", //Valid ordering values are 'recent'
-            interactive: true  //Valid interactive values are true, false
+            ordering: "" //Valid interactive values are true, false
         }).then(({ results }) => {
 
             let widgetContainer = document.querySelector('#placeHolder')
@@ -115,8 +117,31 @@ function registerCustomTimeline() {
             renderRoundTwo(numberPredsResults)
             renderRoundThree(numberPredsResults)
             listenToFollowUpWidget() 
+            renderFollowUps()
         });
     })
+}
+
+function renderFollowUps() {
+    LiveLike.getWidgets({
+        programId: programId,
+        status: "published", //Valid status values are 'scheduled', 'pending', 'published'
+        widgetKinds: ["image-number-prediction-follow-up","text-prediction-follow-up"],
+        ordering: ""
+    }).then(({ results }) => {
+
+        let widgetContainer = document.querySelector('#placeHolder_1')
+        results.forEach(
+            widgetPayload => {
+                widgetContainer.showWidget({
+                    widgetPayload,
+                    mode: ({ widget }) => {
+                        return widgetContainer.attach(widget, 'append')
+                    },
+                    initialLoad: true
+                })
+            })
+    });
 }
 
 function renderRoundTwo(results) {
@@ -237,7 +262,7 @@ function checkIfAllPredictionsDone() {
     if(widgetInteractionSet.size == totalNoOfWidgets) {
         //All preds done
         //alert("All Predictions done")
-        document.getElementById("alert_w_leaderboard").style.visibility = 'visible'
+        document.getElementById("alert_w_leaderboard").style.display = 'block'
     }
 }
 
@@ -304,7 +329,10 @@ function selectOptionOnTextPrediction(widgetIndexInArr, selectedOption) {
 }
 
 function isInitialRound(widgetPayload) {
-    return widgetPayload.widget_attributes[0] != undefined && widgetPayload.widget_attributes[0].value === 'true'
+    let isInitialWidget = widgetPayload.widget_attributes.find(function (element) {
+        return element.key === 'isInitialRound'
+    })
+    return isInitialWidget != undefined && isInitialWidget.value === 'true'
 }
 
 function setWidgetTitle(widgetElm) {
@@ -360,6 +388,7 @@ function selectUnSelectNewOption(isSlotOne, widgetElm, selectedOption) {
         }
     }
 
-    widgetElm.showPredictionButton()
+    if(widgetElm.widgetPayload.slot1 && widgetElm.widgetPayload.slot2 )
+        widgetElm.showPredictionButton()
     return selectedOptionInNewWidget
 }

@@ -146,7 +146,7 @@ const setupLeaderboard = (leaderboardId => {
         const entryRow = document.createElement('tr');
         entryRow.setAttribute('class', 'list-item');
         if (entry.profile_id === LiveLike.userProfile.id) {
-          entry.profile_nickname = 'Me';
+          entry.profile_nickname = 'Moi';
           entryRow.setAttribute('class', 'list-item current-profile-list-item');
         }
         entryRow.innerHTML = `
@@ -167,6 +167,11 @@ const setupLeaderboard = (leaderboardId => {
   document.getElementById('leaderboard_close').onclick = function(){
     showChallengeTab()
   }
+
+  document.getElementById('alert_close').onclick = function(){
+    document.getElementById("validation_error").classList.remove('show')
+  }
+  
   
   const updateLeaderboardData = () => {
     document.getElementById('bracket_tab').style.display = 'none'

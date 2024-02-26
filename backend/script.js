@@ -1,8 +1,8 @@
 const route = "https://cf-blast.livelikecdn.com/api/v1/text-predictions/";
 const numberPredRoute = "https://cf-blast.livelikecdn.com/api/v1/image-number-predictions/";
 
-let program_id = "df63c849-3309-4c99-9128-ae5b0c66ff8d";
-const accessToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjUwMWZlLWIwODQtNDZjMi04NjM5LWM3ZjJkNjljOGExMSIsImNsaWVudF9pZCI6Im1PQll1bDE4cXVmZnJCRHVxMklBQ0t0VnVMYlV6WElQeWU1UzNicTUiLCJhY2Nlc3NfdG9rZW4iOiJhaHF5SDY0WDRzVXExVm1jUHZlMUxPT1NRcWo2dmRCQU5ZRU5WYThELXBNVDNFcnkyb3E5TGciLCJpc19wcm9kdWNlciI6dHJ1ZSwiaXNzIjoiYmxhc3QiLCJpYXQiOjE2NTIwOTExODV9.IqkXgzjAeHZAyEJ5oKXqXpN61zVsSIjCFknrRtjKYEM";
+let program_id = "7ec5fbfc-da76-48df-92b3-fcfe50eff76d";
+const accessToken = "Bearer {}";
 const confirmation_message = "Thank you for your answer!";
 const scheduledAt = new Date(Date.now());
 const interactive_until = new Date(Date.now() + 1000 * 60 * 60 * 24 * 5);
@@ -19,7 +19,7 @@ const widgets = []
 
 const publishWidget = (widgetId, scheduledAt, isNumberPredictionWidget) => {
 
-    const route = getPath(isNumberPredictionWidget)+""+widgetId+"/schedule/"
+    const route = getPath(isNumberPredictionWidget) + "" + widgetId + "/schedule/"
     return axios({
         method: "put",
         url: route,
@@ -36,9 +36,9 @@ const publishWidget = (widgetId, scheduledAt, isNumberPredictionWidget) => {
 }
 
 function getPath(isNumberPredictionWidget) {
-    if(isNumberPredictionWidget) {
+    if (isNumberPredictionWidget) {
         return numberPredRoute
-    } 
+    }
     return route
 }
 
@@ -47,7 +47,7 @@ const createWidget = (programId, question, confirmation_message, options, schedu
 
     let path = getPath(isNumberPredictionWidget)
 
-    
+
     var data = {
         program_id: programId,
         question: question,
@@ -113,35 +113,36 @@ const generateWidgets = () => {
         }
 
     }
-    
-    
-    processWidgetQ(0,true)
-    processWidgetQ(0,false)
+
+
+    processWidgetQ(0, true)
+
 }
 
 function processWidgetQ(widgetProcessingIndex, isNumberPredictionWidget) {
-    if(widgetProcessingIndex >= widgets.length) {
-        return
+    if (widgetProcessingIndex >= widgets.length) {
+        if (!isNumberPredictionWidget) {
+            return
+        }
+
+        processWidgetQ(0, false)
     }
 
     let widget = widgets[widgetProcessingIndex]
     let option = options[widgetProcessingIndex]
-    let attributes = undefined
 
-    if(widget.round === 0) {
-        attributes = JSON.parse("[{\"key\": \"isInitialRound\",\"value\": \"true\"}]")
-    }
-    
-    if(widget.round === 1 || widget.round === 2) {
-        attributes = JSON.parse("[{\"key\": \"bestOf\",\"value\": 5}]")
-    } 
-    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, attributes,isNumberPredictionWidget)
+    let attributes = []
+    let attributeIndex = 0
+    attributes[attributeIndex++] = { "key": "isInitialRound", "value": widget.round === 0 ? "true" : "false" }
+    attributes[attributeIndex++] = { "key": "bestOf", "value": (widget.round === 1 || widget.round === 2) ? "5" : "3" }
+
+    createWidget(program_id, widget.question, confirmation_message, option, scheduledAt, interactive_until, attributes, isNumberPredictionWidget)
         .then(response => {
-            console.log("created widget "+widget.question)
+            console.log("created widget " + widget.question)
             publishWidget(response.data.id, scheduledAt, isNumberPredictionWidget).then(res => {
-                processWidgetQ(widgetProcessingIndex + 1,isNumberPredictionWidget)
+                processWidgetQ(widgetProcessingIndex + 1, isNumberPredictionWidget)
             })
-            
+
         });
 }
 
@@ -150,12 +151,12 @@ function getWidget(index, round) {
         index = index * 2
         return {
             question: `${teamsUnorderedListElement.children[index].firstChild.value} vs ${teamsUnorderedListElement.children[index + 1].firstChild.value}`,
-            round : round
+            round: round
         };
     }
 
     return {
-        question: "Round " + (round + 1) + " Match " + (index + 1), round : round
+        question: "Round " + (round + 1) + " Match " + (index + 1), round: round
     };
 }
 
@@ -164,13 +165,27 @@ function getOptions(index, roundIndex, noOfWidgetsInArray) {
     //First Round widgets
     if (roundIndex === 0) {
         index = index * 2
-        option.push({ description: teamsUnorderedListElement.children[index].firstChild.value, image_url: teamsUnorderedListElement.children[index].children[1].value });
-        option.push({ description: teamsUnorderedListElement.children[index + 1].firstChild.value, image_url: teamsUnorderedListElement.children[index +1].children[1].value });
+        option.push(
+            {
+                description: teamsUnorderedListElement.children[index].firstChild.value,
+                image_url: teamsUnorderedListElement.children[index].children[1].value
+            }
+        );
+        option.push(
+            {
+                description: teamsUnorderedListElement.children[index + 1].firstChild.value,
+                image_url: teamsUnorderedListElement.children[index + 1].children[1].value
+            });
     } else {
         let tempNoOfTeams = teamsUnorderedListElement.children.length;
         let noOfOptionsPerWidget = tempNoOfTeams / noOfWidgetsInArray
-        for(let childIndex = noOfOptionsPerWidget * index; childIndex < (noOfOptionsPerWidget * index)+noOfOptionsPerWidget; childIndex++) {
-            option.push({ description: teamsUnorderedListElement.children[childIndex].firstChild.value, image_url: teamsUnorderedListElement.children[childIndex].children[1].value })
+        for (let childIndex = noOfOptionsPerWidget * index; childIndex < (noOfOptionsPerWidget * index) + noOfOptionsPerWidget; childIndex++) {
+            option.push(
+                {
+                    description: teamsUnorderedListElement.children[childIndex].firstChild.value,
+                    image_url: teamsUnorderedListElement.children[childIndex].children[1].value
+                }
+            )
         }
     }
     return option
